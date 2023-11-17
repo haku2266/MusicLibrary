@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% get_static_prefix as static_prefix %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Free Web tutorials">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="author" content="John Doe">
+    <meta http-equiv="refresh" content="60">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block page_title %}{% endblock %} | RhythmRepository</title>
+    {#site icon resolutions#}
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    {#bootstrap css#}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %} ">
+    {#bootstrap icons#}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    {% block extra_head_link %} {% endblock %}
+</head>
+<body>
+<div class="container">
+
+{% include 'layouts/navbar.html' %}
+
+    {% block content %}
+
+    {% endblock %}
+
+
+{% include 'layouts/footer.html' %}
+</div>
+{#bootstrap js#}
+<script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
