@@ -1,1 +1,62 @@
-<h1>footer</h1>
+<footer class="mt-auto w-100">
+    <div class="container">
+        <div class="row d-flex py-5">
+            <div class="footer-refs col-12 col-md-6 col-lg-7 pb-4 pb-md-0">
+                <a href="{% url 'home' %}" class="site-logo d-flex gap-1 mb-3">
+                    <i class="bi bi-music-note-list"></i><span>Rithm Repository</span>
+                </a>
+
+                <div class="row links d-flex row-gap-4">
+                    <div class="col-12 col-md-6 col-lg-4 links-column d-flex flex-column row-gap-2">
+                        <h2>Get Started</h2>
+                        <a href="#">Introduction</a>
+                        <a href="#">Documentation</a>
+                        <a href="#">Usage</a>
+                        <a href="#">Globals</a>
+                        <a href="#">Elements</a>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 links-column d-flex flex-column row-gap-2">
+                        <h2>Resources</h2>
+                        <a href="#">API</a>
+                        <a href="#">Visibility</a>
+                        <a href="#">Accessibility</a>
+                        <a href="#">Community</a>
+                        <a href="#">Marketplace</a>
+                    </div>
+                    <div class="col-12 col-md links-column socials-column d-flex flex-column row-gap-2">
+                        <h2 class="d-none d-sm-block">Social Media</h2>
+                        <p class="d-none d-sm-block mb-0">
+                            Follow us on social media to find out the latest updates on our
+                            progress.
+                        </p>
+                        <div class="socials d-flex gap-3">
+                            <a class="bi bi-facebook"></a>
+                            <a class="bi bi-instagram"></a>
+                            <a class="bi bi-linkedin"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-5 footer-form">
+                <form>
+                    <div class="title text-center"><h2>Register</h2></div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</footer>

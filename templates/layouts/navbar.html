@@ -1,1 +1,63 @@
-<h1>navbar</h1>
+{% load static %}
+<style>
+    body.open .navbar-burger {
+        background-image: url({% static 'main/img/close.svg' %});
+    }
+
+    .navbar-burger {
+        position: absolute;
+        z-index: 3;
+        top: 15px;
+        right: 100px;
+        width: 72px;
+        height: 72px;
+        background-image: url({% static 'main/img/menu.svg' %});
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+</style>
+<div class="div">
+    <div class="custom-nav position-absolute w-100 top-0 start-0">
+        <nav class="position-absolute z-1 d-flex justify-content-center w-100 h-100">
+            <div class="container d-flex justify-content-between align-items-center h-100">
+                <a href="{% url 'home' %}" class="site-logo d-flex gap-1">
+                    <i class="bi bi-music-note-list"></i><span>Rithm Repository</span>
+                </a>
+                <ul class="d-flex gap-3">
+                    <li><a href="">About</a></li>
+                    <li><a href="">Log In</a></li>
+                    <li><a href="">Register</a></li>
+                    <li><a href="">More</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="page-title w-100 h-100 position-absolute z-0 p-0 d-flex justify-content-start">
+            <span class="h-100 d-flex align-items-center text-uppercase" id="pagetitle">log in</span>
+        </div>
+    </div>
+    <button class="navbar-burger bg-black text-decoration-none border-0" onclick="toggleMenu()"></button>
+    <div class="menu position-fixed">
+        <ul class="row-gap-4 ">
+            <li style="animation-delay: 0.1s">
+                <a href="#" class="navigation__link" data-text="Home">About</a>
+            </li>
+            <li style="animation-delay: 0.2s">
+                <a href="#" class="navigation__link" data-text="About">login</a>
+            </li>
+            <li style="animation-delay: 0.3s">
+                <a href="#" class="navigation__link" data-text="Services">register</a>
+            </li>
+            <li style="animation-delay: 0.4s">
+                <a href="#" class="navigation__link" data-text="Products">more</a>
+            </li>
+            <li style="animation-delay: 0.5s">
+                <a href="#" class="navigation__link" data-text="Contact">Contact</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+
