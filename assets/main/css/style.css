@@ -42,10 +42,6 @@ a {
     font-weight: 800;
     white-space: nowrap;
     color: var(--light-gray-font-color);
-
-}
-
-#page-title {
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
 }
@@ -99,9 +95,16 @@ body.open .menu {
     visibility: visible;
 }
 
-body.open .navbar-burger {
+body.open .out-nav-list-burger {
+
+        display: block !important;
         position: fixed;
 }
+
+body.open .nav-list-burger{
+    display: none;
+}
+
 
 .menu li {
     color: #f9f9f9;

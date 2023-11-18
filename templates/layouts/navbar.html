@@ -1,10 +1,14 @@
 {% load static %}
 <style>
-    body.open .navbar-burger {
+    body.open .out-nav-list-burger {
         background-image: url({% static 'main/img/close.svg' %});
     }
 
-    .navbar-burger {
+    body.open .nav-list-burger {
+        background-image: url({% static 'main/img/close.svg' %});
+    }
+
+    .out-nav-list-burger {
         position: absolute;
         z-index: 3;
         top: 15px;
@@ -15,27 +19,43 @@
         background-repeat: no-repeat;
         background-position: center;
     }
+    .nav-list-burger{
+        width: 72px;
+        height: 72px;
+        background-image: url({% static 'main/img/menu.svg' %});
+        background-repeat: no-repeat;
+        background-position: center;
+    }
 </style>
-<div class="div">
-    <div class="custom-nav position-absolute w-100 top-0 start-0">
+<div class="div position-sticky top-0">
+    <div class="custom-nav position-relative w-100 top-0 start-0">
         <nav class="position-absolute z-1 d-flex justify-content-center w-100 h-100">
             <div class="container d-flex justify-content-between align-items-center h-100">
                 <a href="{% url 'home' %}" class="site-logo d-flex gap-1">
                     <i class="bi bi-music-note-list"></i><span>Rithm Repository</span>
                 </a>
-                <ul class="d-flex gap-3">
-                    <li><a href="">About</a></li>
-                    <li><a href="">Log In</a></li>
-                    <li><a href="">Register</a></li>
-                    <li><a href="">More</a></li>
+                <ul class="d-flex gap-3 align-items-center">
+                    <li class=><a href="">About</a></li>
+                    <li>
+                        <a href="">Log In</a>
+                    </li>
+                    <li>
+                        <a href="">Register</a>
+                    </li>
+                    <li>
+                        <a href="">More</a>
+                    </li>
+                    <li>
+                        <button class="navbar-burger bg-black text-decoration-none border-0 nav-list-burger" onclick="toggleMenu()"></button>
+                    </li>
                 </ul>
             </div>
         </nav>
         <div class="page-title w-100 h-100 position-absolute z-0 p-0 d-flex justify-content-start">
-            <span class="h-100 d-flex align-items-center text-uppercase" id="pagetitle">log in</span>
+            <span class="h-100 d-flex align-items-center text-uppercase" >log in</span>
         </div>
     </div>
-    <button class="navbar-burger bg-black text-decoration-none border-0" onclick="toggleMenu()"></button>
+    <button class="navbar-burger bg-black text-decoration-none border-0 out-nav-list-burger d-none" onclick="toggleMenu()"></button>
     <div class="menu position-fixed">
         <ul class="row-gap-4 ">
             <li style="animation-delay: 0.1s">
