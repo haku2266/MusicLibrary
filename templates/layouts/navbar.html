@@ -37,10 +37,10 @@
                 <ul class="d-flex gap-3 align-items-center">
                     <li class=><a href="">About</a></li>
                     <li>
-                        <a href="">Log In</a>
+                        <a href="{% url 'login' %}">Log In</a>
                     </li>
                     <li>
-                        <a href="">Register</a>
+                        <a href="{% url 'registration' %}">Register</a>
                     </li>
                     <li>
                         <a href="">More</a>
@@ -59,16 +59,16 @@
     <div class="menu position-fixed">
         <ul class="row-gap-4 ">
             <li style="animation-delay: 0.1s">
-                <a href="#" class="navigation__link" data-text="Home">About</a>
+                <a href="#" class="navigation__link" data-text="home">home</a>
             </li>
             <li style="animation-delay: 0.2s">
-                <a href="#" class="navigation__link" data-text="About">login</a>
+                <a href="{% url 'login' %}" class="navigation__link" data-text="login">login</a>
             </li>
             <li style="animation-delay: 0.3s">
-                <a href="#" class="navigation__link" data-text="Services">register</a>
+                <a href="{% url 'registration' %}" class="navigation__link" data-text="register">register</a>
             </li>
             <li style="animation-delay: 0.4s">
-                <a href="#" class="navigation__link" data-text="Products">more</a>
+                <a href="#" class="navigation__link" data-text="more">more</a>
             </li>
             <li style="animation-delay: 0.5s">
                 <a href="#" class="navigation__link" data-text="Contact">Contact</a>
