@@ -12,9 +12,10 @@ class RegistrationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'email', 'password']
+        fields = ['first_name', 'last_name', 'username', 'email',  'profile_img', 'password']
         widgets = {
-            'password': forms.PasswordInput()
+            'password': forms.PasswordInput(),
+            'profile_img': forms.FileInput()
         }
 
     def clean_confirm_password(self):

@@ -1,29 +1,27 @@
+from django.http import Http404
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm, LoginForm
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth import get_user_model
-from .models import CustomUser
+from .models import CustomUserModel
 
 
 def registration_view(request):
     page_title = 'registration'
-    form = RegistrationForm()
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
             del form.cleaned_data['confirm_password']
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password'])
-            print(request.user)
-            user.save()
-            obj = CustomUser.objects.get(username=form.cleaned_data['username'])
-            return render(request, template_name='consumercreate.html', context={
-                'obj': obj,
-            })
+            form.save()
+            # obj = CustomUser.objects.get(username=form.cleaned_data['username'])
+            return redirect('login')
+    else:
+        form = RegistrationForm()
 
-    return render(request, template_name='registration.html', context={
+    return render(request, template_name='user_registration.html', context={
         'form': form,
-        'page_title': 'registration'
+        'page_title': page_title
     })
 
 

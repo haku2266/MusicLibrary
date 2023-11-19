@@ -1,22 +1,24 @@
 from django import forms
 # from django.forms import HiddenInput, TextInput
+from .models import ArtistModel, CreatePostModel
 
-from .models import ConsumerModel
 
-
-class ConsumerForm(forms.ModelForm):
+class ArtistRegisterFrom(forms.ModelForm):
     class Meta:
-        model = ConsumerModel
-        fields = ['user', 'is_artist', 'profile_img']
+        model = ArtistModel
+        fields = ['nickname']
         widgets = {
-            'user': forms.TextInput(),
-            'is_artist': forms.CheckboxInput(),
-            'profile_img': forms.FileInput()
+            'nickname': forms.TextInput(attrs={
+                'placeholder': 'nickname'
+            })
         }
 
 
-# def __init__(self, *args, **kwargs):
-#     super().__init__(*args, **kwargs)
-#     self.fields['user'].widget = TextInput()
-#     self.fields['user'].widget.attrs['disabled'] = 'true'
-    # self.fields['user'].widget = HiddenInput()
+class CreatePostForm(forms.ModelForm):
+    class Meta:
+        model = CreatePostModel
+        fields = ['title', 'text']
+        widgets = {
+            'title': forms.TextInput(attrs={'placeholder': 'post title'}),
+            'text': forms.Textarea(attrs={'style': 'resize: none;'})
+        }

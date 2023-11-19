@@ -10,7 +10,7 @@
 
     .out-nav-list-burger {
         position: absolute;
-        z-index: 3;
+        z-index: 4;
         top: 15px;
         right: 100px;
         width: 72px;
@@ -36,13 +36,26 @@
                     <i class="bi bi-music-note-list"></i><span>Rithm Repository</span>
                 </a>
                 <ul class="d-flex gap-3 align-items-center">
-                    <li class=>
-                        <a href="">About</a>
-                    </li>
                     <li>
-                        <a href="">Contact</a>
+                        <a href="{% url 'home' %}">home</a>
                     </li>
                     {% if request.user.is_authenticated %}
+                        {% if request.user.artist %}
+                            <li>
+                                <a href="{% url 'create_post' %}">
+                                    Create Post
+                                </a>
+                            </li>
+
+                            <li class=>
+                                <a href="{% url 'artist_posts_list' %}">My posts</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="{% url 'artist_register' %}">Artist Register</a>
+                            </li>
+                        {% endif %}
+
                         <li>
                             <a href="{% url 'logout' %}">Log Out</a>
                         </li>
@@ -51,7 +64,7 @@
                             <a href="{% url 'login' %}">Log In</a>
                         </li>
                         <li>
-                            <a href="{% url 'registration' %}">Register</a>
+                            <a href="{% url 'user_registration' %}">Register</a>
                         </li>
                     {% endif %}
 
@@ -68,41 +81,58 @@
             </span>
         </div>
     </div>
-    <button class="navbar-burger bg-black text-decoration-none border-0 out-nav-list-burger d-none"
-            onclick="toggleMenu()"></button>
-    <div class="menu position-fixed">
-        <ul class="row-gap-4 ">
-            <li style="animation-delay: 0.1s">
-                <a href="{% url 'home' %}" class="navigation__link" data-text="home">home</a>
+</div>
+<button class="navbar-burger bg-black text-decoration-none border-0 out-nav-list-burger d-none"
+        onclick="toggleMenu()"></button>
+<div class="menu position-fixed">
+    <ul class="row-gap-4 ">
+        <li style="animation-delay: 0.1s">
+            <a href="{% url 'home' %}" class="navigation__link" data-text="home">home</a>
+        </li>
+        {% if request.user.is_authenticated %}
+            <li style="animation-delay: 0.2s">
+                <a href="{% url 'logout' %}" class="navigation__link" data-text="logout">Logout</a>
             </li>
-            {% if request.user.is_authenticated %}
-                <li style="animation-delay: 0.2s">
-                    <a href="{% url 'logout' %}" class="navigation__link" data-text="login">Logout</a>
-                </li>
+            {% if request.user.artist %}
                 <li style="animation-delay: 0.3s">
-                    <a href="#" class="navigation__link" data-text="Contact">Contact</a>
+                    <a href="{% url 'artist_posts_list' %}" class="navigation__link" data-text="my posts">My
+                        posts</a>
                 </li>
+
                 <li style="animation-delay: 0.4s">
-                    <a href="#" class="navigation__link" data-text="more">more</a>
+                    <a href="{% url 'create_post' %}" class="navigation__link" data-text="create post">create post</a>
                 </li>
             {% else %}
-                <li style="animation-delay: 0.2s">
-                    <a href="{% url 'login' %}" class="navigation__link" data-text="login">login</a>
-                </li>
                 <li style="animation-delay: 0.3s">
-                    <a href="{% url 'registration' %}" class="navigation__link" data-text="register">register</a>
-                </li>
-                <li style="animation-delay: 0.4s">
-                    <a href="#" class="navigation__link" data-text="Contact">Contact</a>
-                </li>
-                <li style="animation-delay: 0.5s">
-                    <a href="#" class="navigation__link" data-text="more">more</a>
+                    <a href="{% url 'artist_register' %}" class="navigation__link" data-text="artist register">Artist
+                        register</a>
                 </li>
             {% endif %}
 
+            <li style="animation-delay: {% if request.user.artist %}0.5s{% else %}0.4s{% endif %}">
+                <a href="#" class="navigation__link" data-text="Contact">Contact</a>
+            </li>
+            <li style="animation-delay: {% if request.user.artist %}0.6s{% else %}0.5s{% endif %}">
+                <a href="#" class="navigation__link" data-text="more">more</a>
+            </li>
+        {% else %}
+            <li style="animation-delay: 0.2s">
+                <a href="{% url 'login' %}" class="navigation__link" data-text="login">login</a>
+            </li>
+            <li style="animation-delay: 0.3s">
+                <a href="{% url 'user_registration' %}" class="navigation__link" data-text="register">register</a>
+            </li>
+            <li style="animation-delay: 0.4s">
+                <a href="#" class="navigation__link" data-text="more">more</a>
+            </li>
+            <li style="animation-delay: 0.5s">
+                <a href="#" class="navigation__link" data-text="Contact">Contact</a>
+            </li>
 
-        </ul>
-    </div>
+        {% endif %}
+
+
+    </ul>
 </div>
 
 

@@ -138,7 +138,7 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-AUTH_USER_MODEL = 'siteuser.CustomUser'
+AUTH_USER_MODEL = 'siteuser.CustomUserModel'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 

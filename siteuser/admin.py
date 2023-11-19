@@ -1,6 +1,23 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
+from .models import CustomUserModel
+
 
 # Register your models here.
-admin.site.register(CustomUser, UserAdmin)
+
+class CustomUserAdmin(UserAdmin):
+    fieldsets = (
+        *UserAdmin.fieldsets,
+        (
+            'Additional Info',
+            {
+                'fields': (
+                    'is_artist',
+                    'profile_img'
+                )
+            }
+        )
+    )
+
+
+admin.site.register(CustomUserModel, CustomUserAdmin)

@@ -1,0 +1,28 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_filters %}
+{% block page_title %}
+    Register Artist
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="col-6 offset-3 bg-secondary">
+            {% if is_artist %}
+                <div class="alert alert-danger" role="alert">
+                Artist already exists
+                </div>
+            {% else %}
+                <form action="{% url 'artist_register' %}" method="post">
+                    {% csrf_token %}
+                    <input type="text" disabled value="{{ request.user.username }}">
+                    <input type="text" disabled value="{{ request.user.email }}">
+                    {{ form|crispy }}
+                    <button type="submit">Create Artist</button>
+                </form>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+{% endblock %}
