@@ -16,3 +16,21 @@ window.addEventListener('scroll', function() {
     navbarText.style.opacity = opacity;
 });
 
+
+let navbar = document.querySelector('.my-nav');
+let initialColor = getComputedStyle(navbar).backgroundColor;
+
+window.addEventListener('scroll', function() {
+    // Calculate the scroll position
+    let scrollPosition = window.scrollY;
+
+    // Set a threshold for changing the background color
+    let threshold = 100;
+
+    // Change the background color based on the scroll position
+    if (scrollPosition > threshold) {
+        navbar.style.backgroundColor = '#000'; // Change this to your desired color
+    } else {
+        navbar.style.backgroundColor = initialColor;
+    }
+});

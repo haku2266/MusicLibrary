@@ -1,0 +1,37 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_filters %}
+{% block page_title %}
+    Listener
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="col-6 offset-3 bg-secondary">
+            {{ request.user }}
+            <form action="{% url 'consumer' %}" method="post">
+                {% csrf_token %}
+
+
+                <div class="input-group ">
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" name=""
+                           disabled value="{{ obj.username }}">
+                </div>
+                {##}
+                <div class="input-group ">
+                    <input type="text" class="form-control" placeholder="user" aria-label="user" name="user"
+                           disabled value="{{ obj }}">
+                </div>
+
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="is_artist">
+                </div>
+
+                <input type="file" name='profile_img'>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+
+    </div>
+
+{% endblock %}
