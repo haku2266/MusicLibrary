@@ -19,7 +19,8 @@
                             <p class="card-text">
                                 {{ post.text }}
                             </p>
-                            {#                            <a href="#" class="btn btn-primary">Go somewhere</a>#}
+                            <a href="{% url 'delete_post' id=post.id %}" class="btn btn-primary d-flex gap-1">
+                                <i class="bi bi-trash text-danger"></i><span class="text-uppercase">delete</span></a>
                         </div>
                     </div>
                 </div>

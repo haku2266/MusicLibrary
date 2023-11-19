@@ -9,61 +9,52 @@
     }
 
     .out-nav-list-burger {
-        position: absolute;
-        z-index: 4;
-        top: 15px;
-        right: 100px;
-        width: 72px;
-        height: 72px;
+
         background-image: url({% static 'main/img/menu.svg' %});
-        background-repeat: no-repeat;
-        background-position: center;
+
     }
 
     .nav-list-burger {
-        width: 72px;
-        height: 72px;
         background-image: url({% static 'main/img/menu.svg' %});
-        background-repeat: no-repeat;
-        background-position: center;
+
     }
 </style>
-<div class="div position-sticky top-0">
+<div class="div position-sticky z-2 top-0">
     <div class="custom-nav position-relative w-100 top-0 start-0">
         <nav class="position-absolute z-1 d-flex justify-content-center w-100 h-100 my-nav">
             <div class="container d-flex justify-content-between align-items-center h-100">
-                <a href="{% url 'home' %}" class="site-logo d-flex gap-1">
-                    <i class="bi bi-music-note-list"></i><span>Rithm Repository</span>
+                <a href="{% url 'home' %}" class="site-logo d-flex gap-1 align-items-center">
+                    <i class="bi bi-music-note-list"></i><span class="d-none d-sm-flex align-items-center">Rithm Repository</span>
                 </a>
-                <ul class="d-flex gap-3 align-items-center">
-                    <li>
+                <ul class="d-flex gap-3 align-items-center mb-0">
+                    <li class="d-none d-lg-block">
                         <a href="{% url 'home' %}">home</a>
                     </li>
                     {% if request.user.is_authenticated %}
                         {% if request.user.artist %}
-                            <li>
+                            <li class="d-none d-lg-block">
                                 <a href="{% url 'create_post' %}">
                                     Create Post
                                 </a>
                             </li>
 
-                            <li class=>
+                            <li class="d-none d-lg-block">
                                 <a href="{% url 'artist_posts_list' %}">My posts</a>
                             </li>
                         {% else %}
-                            <li>
+                            <li class="d-none d-lg-block">
                                 <a href="{% url 'artist_register' %}">Artist Register</a>
                             </li>
                         {% endif %}
 
-                        <li>
+                        <li class="d-none d-lg-block">
                             <a href="{% url 'logout' %}">Log Out</a>
                         </li>
                     {% else %}
-                        <li>
+                        <li class="d-none d-lg-block">
                             <a href="{% url 'login' %}">Log In</a>
                         </li>
-                        <li>
+                        <li class="d-none d-lg-block">
                             <a href="{% url 'user_registration' %}">Register</a>
                         </li>
                     {% endif %}
@@ -71,7 +62,7 @@
 
                     <li>
                         <button class="navbar-burger bg-black text-decoration-none border-0 nav-list-burger"
-                                onclick="toggleMenu()"></button>
+                                onclick="toggleMenu()" id="menu-trigger"></button>
                     </li>
                 </ul>
             </div>
@@ -83,23 +74,21 @@
     </div>
 </div>
 <button class="navbar-burger bg-black text-decoration-none border-0 out-nav-list-burger d-none"
-        onclick="toggleMenu()"></button>
+        onclick="toggleMenu()" id="menu-trigger"></button>
 <div class="menu position-fixed">
     <ul class="row-gap-4 ">
         <li style="animation-delay: 0.1s">
             <a href="{% url 'home' %}" class="navigation__link" data-text="home">home</a>
         </li>
         {% if request.user.is_authenticated %}
-            <li style="animation-delay: 0.2s">
-                <a href="{% url 'logout' %}" class="navigation__link" data-text="logout">Logout</a>
-            </li>
+
             {% if request.user.artist %}
-                <li style="animation-delay: 0.3s">
+                <li style="animation-delay: 0.2s">
                     <a href="{% url 'artist_posts_list' %}" class="navigation__link" data-text="my posts">My
                         posts</a>
                 </li>
 
-                <li style="animation-delay: 0.4s">
+                <li style="animation-delay: 0.3s">
                     <a href="{% url 'create_post' %}" class="navigation__link" data-text="create post">create post</a>
                 </li>
             {% else %}
@@ -108,11 +97,14 @@
                         register</a>
                 </li>
             {% endif %}
+            <li style="animation-delay: 0.4s">
+                <a href="{% url 'logout' %}" class="navigation__link" data-text="logout">Logout</a>
+            </li>
 
-            <li style="animation-delay: {% if request.user.artist %}0.5s{% else %}0.4s{% endif %}">
+            <li style="animation-delay: {% if request.user.artist %}0.5s{% else %}0.5s{% endif %}">
                 <a href="#" class="navigation__link" data-text="Contact">Contact</a>
             </li>
-            <li style="animation-delay: {% if request.user.artist %}0.6s{% else %}0.5s{% endif %}">
+            <li style="animation-delay: {% if request.user.artist %}0.6s{% else %}0.6s{% endif %}">
                 <a href="#" class="navigation__link" data-text="more">more</a>
             </li>
         {% else %}

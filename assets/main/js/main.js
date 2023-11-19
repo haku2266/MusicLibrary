@@ -1,11 +1,11 @@
-const toggleMenu = () => {
-        document.body.classList.toggle("open");
-      };
+// const toggleMenu = () => {
+//         document.body.classList.toggle("open");
+//       };
 
 
 let navbarText = document.querySelector('.page-title');
 
-window.addEventListener('scroll', function() {
+window.addEventListener('scroll', function () {
     // Calculate the opacity based on the scroll position
     let opacity = 1 - window.scrollY / 150; // You can adjust the divisor for a faster or slower fade
 
@@ -20,7 +20,7 @@ window.addEventListener('scroll', function() {
 let navbar = document.querySelector('.my-nav');
 let initialColor = getComputedStyle(navbar).backgroundColor;
 
-window.addEventListener('scroll', function() {
+window.addEventListener('scroll', function () {
     // Calculate the scroll position
     let scrollPosition = window.scrollY;
 
@@ -34,3 +34,22 @@ window.addEventListener('scroll', function() {
         navbar.style.backgroundColor = initialColor;
     }
 });
+
+
+// Number of clicks on the trigger element initially set on 0
+let numOfClicks = 0;
+// Get trigger element
+const trigger = document.getElementById("menu-trigger");
+// Get body element
+const bodyEl = document.getElementsByTagName("body")[0];
+
+const toggleMenu = () => {
+    document.body.classList.toggle("open");
+    numOfClicks += 1;
+    // Check if number of clicks is an even value:
+    // odd value - first click, even value - second click
+    const isNumOfClicksEven = numOfClicks % 2 === 0;
+    // On first click set body's overflow property to "auto",
+    // On second click set body's overflow property to "hidden"
+    isNumOfClicksEven ? bodyEl.style.overflow = "auto" : bodyEl.style.overflow = "hidden";
+};

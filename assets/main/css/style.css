@@ -63,7 +63,7 @@ nav a:hover {
 
 .site-logo i {
     color: var(--green);
-    font-size: 30px;
+    font-size: 40px;
 }
 
 .site-logo span {
@@ -91,6 +91,25 @@ nav a:hover {
     overflow: hidden;
 }
 
+.nav-list-burger {
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 72px;
+    height: 72px;
+}
+
+.out-nav-list-burger {
+    position: absolute;
+    z-index: 4;
+    top: 15px;
+    right: 100px;
+    width: 72px;
+    height: 72px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
 body.open .menu {
     opacity: 1;
     visibility: visible;
@@ -98,11 +117,11 @@ body.open .menu {
 
 body.open .out-nav-list-burger {
 
-        display: block !important;
-        position: fixed;
+    display: block !important;
+    position: fixed;
 }
 
-body.open .nav-list-burger{
+body.open .nav-list-burger {
     display: none;
 }
 
@@ -225,4 +244,60 @@ footer h2 {
 
 footer .socials {
     font-size: 30px;
+}
+
+
+@keyframes error {
+    0% {
+        color: #fff;
+    }
+    25% {
+        color: var(--light-gray-font-color);
+    }
+    50% {
+        color: var(--gray-font-color);
+    }
+    75% {
+        color: var(--green);
+    }
+
+}
+
+.error-message {
+    font-size: 70px;
+    font-family: var(--heading-font);
+    font-weight: 800;
+    color: #fff;
+    animation: error 2s infinite;
+}
+
+.form-card {
+    background: linear-gradient(239.59deg, var(--green) -44.65%, #050505 75.57%);
+    /*box-shadow: rgba(115, 182, 79, 0.4) 0 0 70px 10px;*/
+
+
+}
+
+.form-card label {
+    color: white !important;
+}
+
+.form-card label:before,
+.form-card label:after {
+    color: red;
+}
+
+
+@media (max-width: 991px) {
+    .page-title {
+        font-size: max(40px, 10vw);
+    }
+
+    .custom-nav {
+        height: clamp(80px, 100px, 120px);
+    }
+    .nav-list-burger{
+        width:  50px ;
+        height: 50px ;
+    }
 }

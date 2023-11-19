@@ -1,0 +1,12 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block page_title %}
+    Error
+{% endblock %}
+
+{% block content %}
+    <div class="container d-flex justify-content-center align-items-center " style="height: 400px">
+        <h1 class="error-message text-center">{{ error|upper }}</h1>
+    </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block page_title %}
+	404 ERROR
+{% endblock %}
+{% block content %}
+	<div class="container d-flex justify-content-center align-items-center h-100">
+        <div class="error-404 text-center h-100">
+            <img src="{% static 'main/img/404.svg' %}" alt="" style="width: 450px; height: 450px">
+        </div>
+    </div>
+{% endblock %}

@@ -6,4 +6,11 @@
 
 {% block content %}
     {{ request.user }} A.K.A {{ request.user.artist }}
+    <div class="container">
+        <ul>
+            {% for artist in artists %}
+                <li>{{ artist.user.first_name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
