@@ -7,10 +7,19 @@
 {% block content %}
     {{ request.user }} A.K.A {{ request.user.artist }}
     <div class="container">
-        <ul>
+        <div class="row artist-articles row-gap-2">
             {% for artist in artists %}
-                <li>{{ artist.user.first_name }}</li>
+                {% for post in artist.posts.all %}
+                    <div class="col-12 col-sm-6 col-lg-4 p-2 p-md-3">
+                        <div class="artist-post py-4 px-4 mx-1 position-relative">
+                            <h2>{{ post.title|title|truncatechars:'18' }}</h2>
+                            <span>by {{ post.artist.nickname }}</span>
+                            <hr class="border-2 my-1 opacity-75">
+                            <p class="w-100 h-auto overflow-hidden">{{ post.text|title|truncatechars:'90'}}</p>
+                            <a href="" class="btn btn-primary position-absolute bottom-0 mb-3 d-flex gap-1"> <span>More</span><i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                {% endfor %}
             {% endfor %}
-        </ul>
-    </div>
+        </div>
 {% endblock %}

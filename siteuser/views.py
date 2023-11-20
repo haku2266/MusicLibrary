@@ -8,12 +8,11 @@ from django.core.exceptions import ObjectDoesNotExist
 
 def registration_view(request):
     page_title = 'registration'
-    try:
-        a = request.user.artist
+    if request.user.id is not None:
         return render(request, template_name='universal_error.html', context={
             'error': 'You are already registered'
         })
-    except ObjectDoesNotExist:
+    else:
         if request.method == 'POST':
             form = RegistrationForm(request.POST)
             if form.is_valid():

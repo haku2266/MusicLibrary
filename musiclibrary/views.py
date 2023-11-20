@@ -14,7 +14,8 @@ User = get_user_model()
 
 def home_view(request):
     page_title = 'home'
-    obj = ArtistModel.objects.all()
+    obj = ArtistModel.objects.all().select_related('user').prefetch_related('posts')
+    print(obj)
     return render(request, template_name='home.html', context={
         'page_title': page_title,
         'artists': obj
