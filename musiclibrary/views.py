@@ -14,11 +14,10 @@ User = get_user_model()
 
 def home_view(request):
     page_title = 'home'
-    obj = ArtistModel.objects.all().select_related('user').prefetch_related('posts')
-    print(obj)
+    obj = CreatePostModel.objects.all().select_related('artist').select_related('artist__user')[:5]
     return render(request, template_name='home.html', context={
         'page_title': page_title,
-        'artists': obj
+        'posts': obj
     })
 
 
@@ -74,7 +73,9 @@ def artist_post_list_view(request):
     try:
         if request.user.artist:
             page_title = 'my posts'
-            obj = CreatePostModel.objects.all()
+            obj = CreatePostModel.objects.all().filter(artist__user=request.user) \
+                .select_related('artist') \
+                .select_related('artist__user')
             return render(request, template_name='artist_posts_list.html', context={
                 'posts': obj,
                 'page_title': page_title
@@ -94,4 +95,41 @@ def post_delete_view(request, id):
     except ObjectDoesNotExist:
         return render(request, template_name='universal_error.html', context={
             'error': 'You don\'t have permission to delete posts!'
+        })
+
+
+def user_post_list_view(request):
+    page_title = 'posts'
+    obj = CreatePostModel.objects.all().select_related('artist').select_related('artist__user')
+    return render(request, template_name='user_posts_list.html', context={
+        'page_title': page_title,
+        'posts': obj
+    })
+
+
+@login_required
+def edit_post_view(request, id):
+    page_title = 'edit post'
+    obj = CreatePostModel.objects.get(id=id)
+    form = CreatePostForm(instance=obj)
+    if request.method == 'POST':
+        form = CreatePostForm(request.POST, instance=obj)
+        if form.is_valid():
+            form.save()
+            return redirect('artist_posts_list')
+
+    return render(request, template_name='post_edit.html', context={
+        'form': form,
+        'page_title': page_title
+    })
+
+
+def post_detail_view(request, id):
+    try:
+        obj = CreatePostModel.objects.get(id=id)
+    except ObjectDoesNotExist:
+        return redirect('home')
+    else:
+        return render(template_name='post_detail', context={
+            'post': obj
         })

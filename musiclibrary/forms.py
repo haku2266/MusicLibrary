@@ -19,6 +19,7 @@ class CreatePostForm(forms.ModelForm):
         model = CreatePostModel
         fields = ['title', 'text']
         widgets = {
-            'title': forms.TextInput(attrs={'placeholder': 'post title'}),
-            'text': forms.Textarea(attrs={'style': 'resize: none;'})
+            'title': forms.TextInput(attrs={'placeholder': 'Post Title'}),
+            'text': forms.Textarea(attrs={'style': 'resize: none;',
+                                          'placeholder': 'Post Content'})
         }
