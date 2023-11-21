@@ -60,10 +60,10 @@ $(document).ready(function () {
 
         if (passwordInput.attr("type") === "password") {
             passwordInput.attr("type", "text");
-            $(".toggle-password").attr("class", "bi bi-eye-fill text-white toggle-password position-absolute "); // Replace with your open eye icon
+            $(".toggle-password").attr("class", "bi bi-eye-fill toggle-password position-absolute "); // Replace with your open eye icon
         } else {
             passwordInput.attr("type", "password");
-            $(".toggle-password").attr("class", "bi-eye-slash-fill text-white toggle-password position-absolute "); // Replace with your closed eye icon
+            $(".toggle-password").attr("class", "bi-eye-slash-fill toggle-password position-absolute "); // Replace with your closed eye icon
         }
     });
 });
@@ -75,7 +75,7 @@ $(document).ready(function () {
 
         if (passwordInput.attr("type") === "password") {
             passwordInput.attr("type", "text");
-            $(".toggle-confirm-password").attr("class", "bi bi-eye-fill text-white toggle-confirm-password position-absolute "); // Replace with your open eye icon
+            $(".toggle-confirm-password").attr("class", "bi bi-eye-fill toggle-confirm-password position-absolute "); // Replace with your open eye icon
         } else {
             passwordInput.attr("type", "password");
             $(".toggle-confirm-password").attr("class", "bi bi-eye-slash-fill toggle-confirm-password position-absolute"); // Replace with your closed eye icon

@@ -23,7 +23,7 @@
                             <div class="artist-post only py-4 px-4 mx-1 position-relative d-flex flex-column">
                                 <h2>{{ post.title|default:'untitled'|title|truncatechars:'18' }}</h2>
                                 <span class="fs-6 my-1">{{ post.created_at|date:'F j, Y' }}</span>
-                                <span>by {{ post.artist.nickname }}</span>
+                                <span>by {{ post.artist.nickname|default:'Unknown' }}</span>
                                 <hr class="border-2 my-1 opacity-75">
                                 <p class="h-auto overflow-hidden">{{ post.text|capfirst|safe|truncatechars:'130' }}</p>
                                 <div class="post-options mt-auto mb-3">

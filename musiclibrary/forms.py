@@ -9,6 +9,7 @@ class ArtistRegisterFrom(forms.ModelForm):
         fields = ['nickname']
         widgets = {
             'nickname': forms.TextInput(attrs={
-                'placeholder': 'nickname'
+                'placeholder': 'nickname',
+                'class': 'form-control'
             })
         }

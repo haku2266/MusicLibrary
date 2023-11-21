@@ -18,7 +18,7 @@ class RegistrationForm(forms.ModelForm):
             'password': forms.PasswordInput(attrs={'class': 'form-control password-input',
                                                    'placeholder': 'password'}),
             'profile_img': forms.FileInput(attrs={'class': 'form-control'}),
-            'username': forms.TextInput(attrs={'class': 'form-control ',
+            'username': forms.TextInput(attrs={'class': 'form-control',
                                                'placeholder': 'username'}),
             'email': forms.EmailInput(attrs={'class': 'form-control ',
                                              'placeholder': 'email'})

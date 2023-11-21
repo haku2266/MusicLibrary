@@ -12,8 +12,7 @@ class CustomUserAdmin(UserAdmin):
             'Additional Info',
             {
                 'fields': (
-                    'is_artist',
-                    'profile_img'
+                    'profile_img',
                 )
             }
         )

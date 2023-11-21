@@ -24,8 +24,6 @@ def home_view(request):
     })
 
 
-
-
 @login_required
 def artist_registration_view(request):
     try:
@@ -40,7 +38,11 @@ def artist_registration_view(request):
         if request.method == 'POST':
             form = ArtistRegisterFrom(request.POST)
             if form.is_valid():
-                artist = ArtistModel(nickname=form.cleaned_data['nickname'], user=request.user)
+                if form.cleaned_data['nickname']:
+                    artist = ArtistModel(nickname=form.cleaned_data['nickname'], user=request.user)
+                else:
+                    artist = ArtistModel(nickname=f'{request.user.first_name} {request.user.last_name}',
+                                         user=request.user)
                 artist.save()
                 return redirect('home')
         return render(request, template_name='artist_registration.html', context={
