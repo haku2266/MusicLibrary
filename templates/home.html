@@ -1,5 +1,4 @@
 {% extends 'layouts/base.html' %}
-
 {% block page_title %}
     Main
 {% endblock %}
@@ -7,7 +6,7 @@
 {% block content %}
     {#    {{ request.user }} A.K.A {{ request.user.artist }}#}
     <div class="container">
-        <h1 class="text-center articles-section-header">Posts by artists</h1>
+        <h1 class="text-center articles-section-header">latest posts</h1>
         <div class="row artist-articles row-gap-2">
             {% for post in posts %}
                 <div class="col-12 col-sm-6 col-lg-4 p-2 p-md-3 position-relative">
@@ -18,18 +17,30 @@
                             d-none
                         {% endif %}
                     "></i>
-                    <div class="artist-post py-4 px-4 mx-1 position-relative">
-                        <h2>{{ post.title|default:'untitled'|title|truncatechars:'18' }}</h2>
+                    <div class="artist-post only py-4 px-4 mx-1 position-relative d-flex flex-column">
+                        <span class="fs-6">{{ post.created_at|timesince}} ago</span>
+                        <h2 class="mt-2">{{ post.title|default:'untitled'|title|truncatechars:'18' }}</h2>
                         <span>by {{ post.artist.nickname }}</span>
                         <hr class="border-2 my-1 opacity-75">
-                        <p class="h-auto overflow-hidden">{{ post.text|title|truncatechars:'130' }}</p>
-                        <a href="" class="btn btn-primary position-absolute bottom-0 mb-4 mt-1 d-flex gap-1">
-                            <span>Read More</span><i class="bi bi-arrow-right"></i></a>
+                        <p class="h-auto overflow-hidden">{{ post.text|capfirst|safe|truncatechars:'130' }}</p>
+                        <div class="post-options mt-auto mb-3">
+                            <div class="d-flex justify-content-start">
+                                <a href="{% url 'post_detail' id=post.id %}"
+                                   class="btn btn-primary gap-1 d-flex w-auto">
+                                    <span>Read More</span><i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
-            <div class="col-12 col-sm-6 col-lg-4 p-2 p-md-3 position-relative d-flex justify-content-center align-items-center see-more-posts">
-                <a href="{% url 'user_posts_list' %}" class="btn btn-primary d-flex gap-1"><span>See More</span><i class="bi bi-arrow-right"></i></a>
+            <div class="col-12 col-sm-6 col-lg-12 p-2 p-md-3 position-relative d-flex justify-content-start justify-content-sm-center align-items-center see-more-posts">
+                <div class="py-4 px-4 mx-1 post-options">
+                    <a href="{% url 'user_posts_list' %}"
+                       class="btn btn-primary go-back px-3 gap-1 d-flex"><span>See More</span><i
+                            class="bi bi-arrow-right"></i></a>
+                </div>
+
             </div>
         </div>
 {% endblock %}

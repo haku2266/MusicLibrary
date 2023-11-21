@@ -20,13 +20,21 @@
                                         d-none
                                     {% endif %}
                                 "></i>
-                            <div class="artist-post py-4 px-4 mx-1 position-relative">
+                            <div class="artist-post only py-4 px-4 mx-1 position-relative d-flex flex-column">
                                 <h2>{{ post.title|default:'untitled'|title|truncatechars:'18' }}</h2>
+                                <span class="fs-6 my-1">{{ post.created_at|date:'F j, Y' }}</span>
                                 <span>by {{ post.artist.nickname }}</span>
                                 <hr class="border-2 my-1 opacity-75">
-                                <p class="h-auto overflow-hidden">{{ post.text|title|truncatechars:'130' }}</p>
-                                <a href="" class="btn btn-primary position-absolute bottom-0 mb-4 mt-1 d-flex gap-1">
-                                    <span>Read More</span><i class="bi bi-arrow-right"></i></a>
+                                <p class="h-auto overflow-hidden">{{ post.text|capfirst|safe|truncatechars:'130' }}</p>
+                                <div class="post-options mt-auto mb-3">
+                                    <div class="d-flex justify-content-start">
+                                        <a href="{% url 'post_detail' id=post.id %}"
+                                           class="btn btn-primary gap-1 d-flex w-auto">
+                                            <span>Read More</span><i class="bi bi-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     {% endfor %}

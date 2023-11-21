@@ -25,6 +25,7 @@ urlpatterns = [
     path("__debug__/", include("debug_toolbar.urls")),
     path('', include('musiclibrary.urls')),
     path('user/', include('siteuser.urls')),
+    path('posts/', include('posts.urls'))
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import TagModel, CreatePostModel
 
-# Register your models here.
+admin.site.register(TagModel)
+admin.site.register(CreatePostModel)

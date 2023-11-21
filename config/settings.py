@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
 
     'musiclibrary',
-    'siteuser'
+    'siteuser',
+    'posts'
 ]
 
 MIDDLEWARE = [

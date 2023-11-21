@@ -14,7 +14,7 @@ def registration_view(request):
         })
     else:
         if request.method == 'POST':
-            form = RegistrationForm(request.POST)
+            form = RegistrationForm(request.POST, request.FILES)
             if form.is_valid():
                 del form.cleaned_data['confirm_password']
                 user = form.save(commit=False)

@@ -7,45 +7,44 @@
 {% block content %}
     <div class="container">
         <div class="row">
-
-            <div class="container">
-                <h1 class="text-center articles-section-header">My Posts</h1>
-                <div class="row artist-articles row-gap-2">
-                    {% for post in posts %}
-                        <div class="col-12 col-sm-6 col-lg-4 p-2 p-md-3 position-relative">
-                            <i class="editor-gem position-absolute bi bi-gem
+            <h1 class="text-center articles-section-header">My Posts</h1>
+            <div class="row artist-articles row-gap-2">
+                {% for post in posts %}
+                    <div class="col-12 col-sm-6 col-lg-4 p-2 p-md-3 position-relative">
+                        <i class="editor-gem position-absolute bi bi-gem
                                     {% if request.user.artist == post.artist %}
                                     	d-block
                                     {% else %}
                                         d-none
                                     {% endif %}
                                 "></i>
-                            <div class="artist-post py-4 px-4 mx-1 position-relative">
-                                <h2>{{ post.title|default:'untitled'|title|truncatechars:'18' }}</h2>
-                                <span>by {{ post.artist.nickname }}</span>
-                                <hr class="border-2 my-1 opacity-75">
-                                <p class="h-auto overflow-hidden">{{ post.text|title|truncatechars:'130' }}</p>
-                                <div class="post-options d-flex gap-1 position-absolute bottom-0">
-                                    <a href=""
-                                       class="btn btn-primary  mb-4 mt-1 d-flex gap-2">
-                                        <span>Read</span><i class="bi bi-arrow-right"></i>
-                                    </a>
-                                    <a href="{% url 'edit_post' id=post.id %}"
-                                       class="btn btn-outline-primary  mb-4 mt-1 d-flex gap-2">
-                                        <span>Edit</span><i class="bi bi-pencil"></i>
-                                    </a>
-                                    <a href="{% url 'delete_post' id=post.id %}"
-                                       class="btn btn-outline-danger  mb-4 mt-1 d-flex gap-2">
-                                        <span>Delete</span><i class="bi bi-trash"></i>
-                                    </a>
-                                </div>
+                        <div class="artist-post only py-4 px-4 mx-1 position-relative d-flex flex-column">
+                            <h2>{{ post.title|default:'untitled'|title|truncatechars:'18' }}</h2>
+                            <span class="fs-6 my-1">{{ post.created_at|date:'F j, Y' }}</span>
 
-
+                            <span>by {{ post.artist.nickname }}</span>
+                            <hr class="border-2 my-1 opacity-75">
+                            <p class="h-auto overflow-hidden">{{ post.text|capfirst|safe|truncatechars:'130' }}</p>
+                            <div class="post-options d-flex gap-3 mb-4 mt-auto">
+                                <a href="{% url 'post_detail' id=post.id %}"
+                                   class="btn btn-primary  d-flex gap-2">
+                                    <span class="btn-text">Read</span><i class="bi bi-arrow-right"></i>
+                                </a>
+                                <a href="{% url 'edit_post' id=post.id %}"
+                                   class="btn btn-primary d-flex gap-2 go-back">
+                                    <span class="">Edit</span><i class="bi bi-pencil"></i>
+                                </a>
+                                <a href="{% url 'delete_post' id=post.id %}"
+                                   class="btn btn-outline-danger  d-flex gap-2">
+                                    <span class="">Delete</span><i class="bi bi-trash"></i>
+                                </a>
                             </div>
-                        </div>
-                    {% endfor %}
-                </div>
 
+
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
+    </div>
 {% endblock %}

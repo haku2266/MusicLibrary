@@ -27,26 +27,58 @@
                     <i class="bi bi-music-note-list"></i><span class="d-none d-sm-flex align-items-center">Rithm Repository</span>
                 </a>
                 <ul class="d-flex gap-3 align-items-center mb-0">
-                    <li class="d-none d-lg-block">
-                        <a href="{% url 'home' %}">home</a>
+                    <li class="">
+                        {% url 'home' as home %}
+                        <a href="{{ home }}" class="
+
+                               {% if request.path == home %}
+                               active
+                               {% endif %}
+
+                            ">home</a>
                     </li>
-                    <li>
-                        <a href="{% url 'user_posts_list' %}">posts</a>
+                    <li class="d-none d-lg-block">
+                        {% url 'user_posts_list' as user_post_list %}
+                        <a href="{{ user_post_list }}" class="
+
+                        {% if request.path == user_post_list %}
+                        	active
+                        {% endif %}
+                        ">posts</a>
                     </li>
                     {% if request.user.is_authenticated %}
                         {% if request.user.artist %}
                             <li class="d-none d-lg-block">
-                                <a href="{% url 'create_post' %}">
+                                {% url 'create_post' as create_post %}
+                                <a href="{{ create_post }}" class="
+
+                                {% if request.path == create_post %}
+                                	active
+                                {% endif %}
+                                ">
                                     Create Post
                                 </a>
                             </li>
 
                             <li class="d-none d-lg-block">
-                                <a href="{% url 'artist_posts_list' %}">My posts</a>
+                                {% url 'artist_posts_list' as artist_post_list %}
+                                <a href="{{ artist_post_list }}" class="
+
+                                 {% if request.path == artist_post_list %}
+                                 	active
+                                 {% endif %}
+
+                                ">My posts</a>
                             </li>
                         {% else %}
                             <li class="d-none d-lg-block">
-                                <a href="{% url 'artist_register' %}">Artist Register</a>
+                                {% url 'artist_register' as artist_register %}
+                                <a href="{{ artist_register }}" class="
+
+                                    {% if request.path == artist_register %}
+                                    	active
+                                    {% endif %}
+                                ">Artist Register</a>
                             </li>
                         {% endif %}
 
@@ -55,10 +87,18 @@
                         </li>
                     {% else %}
                         <li class="d-none d-lg-block">
-                            <a href="{% url 'login' %}">Log In</a>
+                            {% url 'login' as login %}
+                            <a href="{{ login }}" class="
+                            {% if request.path == login %}
+                            	active
+                            {% endif %} ">Log In</a>
                         </li>
                         <li class="d-none d-lg-block">
-                            <a href="{% url 'user_registration' %}">Register</a>
+                            {% url 'user_registration' as registration %}
+                            <a href="{{ registration }}" class="
+                            {% if request.path == registration %}
+                            	    active
+                            {% endif %} ">Register</a>
                         </li>
                     {% endif %}
 
@@ -83,44 +123,47 @@
         <li style="animation-delay: 0.1s">
             <a href="{% url 'home' %}" class="navigation__link" data-text="home">home</a>
         </li>
+        <li style="animation-delay: 0.2s">
+            <a href="{% url 'user_posts_list' %}" class="navigation__link" data-text="posts">posts</a>
+        </li>
         {% if request.user.is_authenticated %}
 
             {% if request.user.artist %}
-                <li style="animation-delay: 0.2s">
+                <li style="animation-delay: 0.3s">
                     <a href="{% url 'artist_posts_list' %}" class="navigation__link" data-text="my posts">My
                         posts</a>
                 </li>
 
-                <li style="animation-delay: 0.3s">
+                <li style="animation-delay: 0.4s">
                     <a href="{% url 'create_post' %}" class="navigation__link" data-text="create post">create post</a>
                 </li>
             {% else %}
-                <li style="animation-delay: 0.3s">
+                <li style="animation-delay: 0.4s">
                     <a href="{% url 'artist_register' %}" class="navigation__link" data-text="artist register">Artist
                         register</a>
                 </li>
             {% endif %}
-            <li style="animation-delay: 0.4s">
+            <li style="animation-delay: 0.5s">
                 <a href="{% url 'logout' %}" class="navigation__link" data-text="logout">Logout</a>
             </li>
 
-            <li style="animation-delay: {% if request.user.artist %}0.5s{% else %}0.5s{% endif %}">
+            <li style="animation-delay: {% if request.user.artist %}0.6s{% else %}0.6s{% endif %}">
                 <a href="#" class="navigation__link" data-text="Contact">Contact</a>
             </li>
-            <li style="animation-delay: {% if request.user.artist %}0.6s{% else %}0.6s{% endif %}">
+            <li style="animation-delay: {% if request.user.artist %}0.7s{% else %}0.7s{% endif %}">
                 <a href="#" class="navigation__link" data-text="more">more</a>
             </li>
         {% else %}
-            <li style="animation-delay: 0.2s">
+            <li style="animation-delay: 0.3s">
                 <a href="{% url 'login' %}" class="navigation__link" data-text="login">login</a>
             </li>
-            <li style="animation-delay: 0.3s">
+            <li style="animation-delay: 0.4s">
                 <a href="{% url 'user_registration' %}" class="navigation__link" data-text="register">register</a>
             </li>
-            <li style="animation-delay: 0.4s">
+            <li style="animation-delay: 0.5s">
                 <a href="#" class="navigation__link" data-text="more">more</a>
             </li>
-            <li style="animation-delay: 0.5s">
+            <li style="animation-delay: 0.6s">
                 <a href="#" class="navigation__link" data-text="Contact">Contact</a>
             </li>
 
