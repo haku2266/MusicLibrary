@@ -83,3 +83,31 @@ $(document).ready(function () {
     });
 });
 
+
+const tabs = document.querySelectorAll(".my-tabs .tabs li");
+const sections = document.querySelectorAll(".my-tabs .tab-content");
+
+tabs.forEach(tab => {
+    tab.addEventListener("click", e => {
+        e.preventDefault();
+        removeActiveTab();
+        addActiveTab(tab);
+    });
+})
+
+const removeActiveTab = () => {
+    tabs.forEach(tab => {
+        tab.classList.remove("d-block");
+    });
+    sections.forEach(section => {
+        section.classList.remove("d-block");
+    });
+}
+
+const addActiveTab = tab => {
+    tab.classList.add("d-block");
+    const href = tab.querySelector("a").getAttribute("href");
+    const matchingSection = document.querySelector(href);
+    matchingSection.classList.add("d-block");
+}
+

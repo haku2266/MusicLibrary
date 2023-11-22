@@ -1,0 +1,105 @@
+{% extends 'layouts/base.html' %}
+
+{% block page_title %}
+    Artist Detail
+{% endblock %}
+
+{% block content %}
+    <div class="container artist-detail d-flex flex-column">
+        <div class="row d-flex flex-column position-relative">
+            <div class="profile-img-wrapper d-flex col-12 col-md-4 h-100 position-absolute z-1">
+                <img src="{{ artist.user.profile_img.url }}" class="artist-profile-img mx-auto my-md-auto" alt="">
+
+            </div>
+            <div class="artist-detail-info-wrapper col-12 col-md-10 ms-md-auto d-flex z-0 position-relative">
+                <div class="col-8 col-lg-10 ms-auto artist-detail-info mh-100 py-3">
+                    <h1 class="artist-nickname my-2">{{ artist.nickname|upper }}</h1>
+                    <h4>Also known as {{ artist.user.first_name }} {{ artist.user.last_name }}</h4>
+                    <p></p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row mt-5 artist-discography">
+            <div class="col-12">
+                <h2 class="mb-4 mt-5">Discography</h2>
+                <div class="my-tabs w-100 mb-3 d-flex flex-column">
+                    <div class="tabs w-100 mb-3">
+                        <ul class="d-flex gap-2 ps-0">
+                            <li class="d-block px-4 py-2 rounded-5 text-white"><a href="#tab-one">Popular Releases</a>
+                            </li>
+                            <li class=" px-4 py-2 rounded-5 text-white"><a href="#tab-two">Albums</a></li>
+                            <li class=" px-4 py-2 rounded-5 text-white"><a href="#tab-three">Singles</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="content w-100 d-flex" style="">
+                        <section class="tab-content m-auto w-100 d-block" id="tab-one">
+
+                            <div class="row d-flex overflow-y-hidden" style="height: 290px">
+                                {% for album in artist.albums_by_artist.all %}
+
+                                    <div class="col-6 px-0 col-md-4 mx-md-0 col-lg-3 col-xl-2 mx-lg-0 mx-xl-4 position-relative mx-xxl-2 d-flex flex-column align-items-center">
+{#                                        <div class="card-play-button-wrapper position-absolute z-2 w-auto">#}
+{#                                            <a href="" class="card-play-button px-2 py-1"><i#}
+{#                                                    class="bi bi-play-fill"></i>#}
+{#                                            </a>#}
+{#                                        </div>#}
+                                        <a href="" class="release-wrapper d-flex flex-column align-items-center">
+                                            <div class="song-card p-3 px-4 pb-4 rounded-3 ">
+                                                <img src="{{ album.cover.url }}" class="mb-4 rounded-3" alt="">
+                                                <h5>{{ album.title|truncatechars:'15' }}</h5>
+                                                <span>{{ album.uploaded_at|date:'Y' }} - Album</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                        </section>
+                        <section class="tab-content m-auto w-100" id="tab-two">
+
+                            <div class="row d-flex overflow-y-hidden" style="height: 290px">
+                                {% for album in artist.albums_by_artist.all %}
+                                    <div class="col-6 px-0 col-md-4 mx-md-0 col-lg-3 col-xl-2 mx-lg-0 mx-xl-4 mx-xxl-2 d-flex flex-column align-items-center">
+                                        <a href="" class="release-wrapper d-flex flex-column align-items-center">
+                                            <div class="song-card p-3 px-4 pb-4 rounded-3">
+                                                <img src="{{ album.cover.url }}"
+                                                     class="mb-4 rounded-3" alt="">
+                                                <h5>{{ album.title|truncatechars:'15' }}</h5>
+                                                <span>{{ album.uploaded_at|date:'Y' }} - Album</span>
+
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                        </section>
+                        <section class="tab-content m-auto w-100" id="tab-three">
+                            <div class="overflow-y-hidden text-white row d-flex" style="height: 290px">
+                                {% for song in artist.songs_by_artist.all %}
+                                    <div class="col-6 px-0 col-md-4 mx-md-0 col-lg-3 col-xl-2 mx-lg-0 mx-xl-4 mx-xxl-2 d-flex flex-column align-items-center">
+                                        <a href="" class="release-wrapper d-flex flex-column align-items-center">
+                                            <div class="song-card p-3 px-4 pb-4 rounded-3">
+                                                <img src="{{ song.cover.url }}"
+                                                     class="mb-4 rounded-3" alt="">
+                                                <h5>{{ song.title|truncatechars:'15' }}</h5>
+                                                <span>{{ song.uploaded_at|date:'Y' }} - Song</span>
+
+                                            </div>
+                                        </a>
+
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </section>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

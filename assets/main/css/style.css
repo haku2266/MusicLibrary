@@ -12,8 +12,10 @@
     --light-blue: #56ccf2;
     --heading-font: 'Plus Jakarta Sans', sans-serif;
     --body-font: 'Roboto', sans-serif;
-    --gradient-cart-bg: linear-gradient(239.59deg, #2c2c2d -44.65%, #1a1a1e 75.57%);
-    --light-black: #1a1a1e;
+    --gradient-body-bg: linear-gradient(239.59deg, #242424 -44.65%, #121212 75.57%);
+    --light-blue-black: #1a1a1e;
+    --light-black: #121212;
+    ---light-black-hover: #1e1e1e;
 }
 
 body {
@@ -585,11 +587,9 @@ footer .socials {
 /* end error screen style*/
 
 
-
-
 /*forms style*/
 .form-card {
-    background: var(--light-black);
+    background: var(--light-blue-black);
     backdrop-filter: blur(20px);
 }
 
@@ -625,7 +625,7 @@ input:disabled {
 }
 
 .form-control:focus {
-    background-color: var(--light-black) !important;
+    background-color: var(--light-blue-black) !important;
     box-shadow: none;
     outline: none;
     border: 1px solid var(--green);
@@ -650,6 +650,7 @@ span.asteriskField {
 .form-card h2 > i {
     color: var(--green);
 }
+
 .toggle-password {
     font-size: 20px;
     color: var(--green) !important;
@@ -663,7 +664,6 @@ span.asteriskField {
     top: 50px;
     right: 25px;
 }
-
 
 
 /*article section styles start*/
@@ -690,14 +690,14 @@ span.asteriskField {
 
 .artist-post.only {
     /*background-color: var(--light-black);*/
-    background: linear-gradient(239.59deg, #2c2c2d -44.65%, var(--light-black) 75.57%);
+    background: linear-gradient(239.59deg, #2c2c2d -44.65%, var(--light-blue-black) 75.57%);
     height: 350px;
     overflow: hidden;
 }
 
 .artist-post.post-detail {
     min-height: 350px;
-    background: linear-gradient(239.59deg, #2c2c2d -44.65%, var(--light-black) 75.57%);
+    background: linear-gradient(239.59deg, #2c2c2d -44.65%, var(--light-blue-black) 75.57%);
 }
 
 .artist-post a.btn.btn-primary,
@@ -761,13 +761,91 @@ span.asteriskField {
     background-color: var(--light-blue) !important;
 
 }
+
 .post-options a > span.btn-text {
     color: #fff;
 }
 
+/*end posts styling*/
 
 
+/*start artist detail style*/
 
+
+img.artist-profile-img {
+    border-radius: 50%;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+}
+
+
+.artist-detail .artist-detail-info-wrapper {
+    background-image: var(--gradient-body-bg);
+}
+
+.artist-detail-info-wrapper {
+    min-height: 350px;
+}
+
+.artist-detail-info {
+    font-family: var(--body-font);
+    color: var(--gray-font-color);
+}
+
+.artist-detail h2,
+.artist-detail h1 {
+    font-family: var(--heading-font);
+    color: #fff;
+    font-weight: 600;
+}
+
+.artist-detail h1 {
+    font-weight: 800;
+}
+
+.song-card {
+    /*background-image: var(--gradient-body-bg);*/
+    color: #fff;
+    background-color: var(--light-black);
+    transition: 250ms background-color;
+
+}
+
+.song-card img {
+    width: 170px;
+    height: 170px;
+    object-fit: cover;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tabs li {
+    transition: 250ms background-color;
+    background-color: var(---light-black-hover);
+    /*border: var(---light-black-hover) 2px solid !important;*/
+}
+
+.tabs li:hover {
+    cursor: pointer;
+    background-color: var(--light-blue-black);
+}
+
+.tabs .d-block {
+    background-color: #fff !important;
+    color: #000 !important;
+}
+
+.song-card span {
+    color: var(--gray-font-color);
+}
+
+
+a.release-wrapper:hover .song-card{
+    background-color: #1e1e1e;
+}
 
 
 
@@ -785,29 +863,6 @@ span.asteriskField {
 
 
 /*media queries*/
-
-@media (max-width: 991px) {
-    .page-title {
-        font-size: max(40px, 10vw);
-    }
-
-    .custom-nav {
-        height: clamp(80px, 100px, 120px);
-    }
-
-    .nav-list-burger {
-        width: 50px;
-        height: 50px;
-    }
-
-    .out-nav-list-burger {
-        right: 50px !important;
-    }
-
-    .navigation__link {
-        font-size: 50px;
-    }
-}
 
 @media (max-height: 450px) {
     .menu ul {
@@ -837,6 +892,38 @@ span.asteriskField {
         align-items: center;
     }
 
+}
+
+@media (max-width: 991px) {
+    .page-title {
+        font-size: max(40px, 10vw);
+    }
+
+    .custom-nav {
+        height: clamp(80px, 100px, 120px);
+    }
+
+    .nav-list-burger {
+        width: 50px;
+        height: 50px;
+    }
+
+    .out-nav-list-burger {
+        right: 50px !important;
+    }
+
+    .navigation__link {
+        font-size: 50px;
+    }
+}
+
+@media (max-width: 767px) {
+    .artist-detail-info-wrapper {
+        top: 200px;
+    }
+    .artist-discography{
+        margin-top: 250px !important;
+    }
 }
 
 @media (max-width: 545px) {

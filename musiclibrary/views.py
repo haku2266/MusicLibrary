@@ -49,3 +49,12 @@ def artist_registration_view(request):
             'form': form,
             'page_title': page_title,
         })
+
+
+def artist_detail_view(request, id):
+    page_title = 'artist'
+    obj = ArtistModel.objects.get(id=id)
+    return render(request, template_name='artist_detail.html', context={
+        'artist': obj,
+        'page_title': page_title
+    })

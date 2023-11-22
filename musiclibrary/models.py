@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-
+from django.shortcuts import reverse
 User = get_user_model()
 
 
@@ -15,6 +15,8 @@ class ArtistModel(models.Model):
     def __str__(self):
         return self.nickname
 
+    def get_absolute_url(self):
+        return reverse('artist_detail', kwargs={'id': self.id})
     class Meta:
         verbose_name = 'artist'
         verbose_name_plural = 'artists'
@@ -33,6 +35,9 @@ class AlbumModel(models.Model):
     artist = models.ForeignKey(ArtistModel, blank=True, null=True,
                                on_delete=models.SET_NULL,
                                related_name='albums_by_artist')
+
+    def get_absolute_url(self):
+        return reverse('album_detail', kwargs={'id': self.id})
 
     def __str__(self):
         return f'album:{self.title}'
@@ -66,6 +71,9 @@ class SongModel(models.Model):
     def __str__(self):
         return f'song:{self.title}'
 
+    def get_absolute_url(self):
+        return reverse('song_detail', kwargs={'id': self.id})
+
     class Meta:
         verbose_name = 'song'
         verbose_name_plural = 'songs'
@@ -83,6 +91,9 @@ class PlaylistModel(models.Model):
     def __str__(self):
         return f'playlist:{self.title}'
 
+    def get_absolute_url(self):
+        return reverse('playlist_detail', kwargs={'id': self.id})
+
     class Meta:
         verbose_name = 'playlist'
         verbose_name_plural = 'playlists'
@@ -90,16 +101,19 @@ class PlaylistModel(models.Model):
 
 class LikedContentModel(models.Model):
     songs = models.ManyToManyField(SongModel, related_name='liked_songs', blank=True,
-                                   null=True)
+                                   )
     albums = models.ManyToManyField(AlbumModel, related_name='liked_albums', blank=True,
-                                    null=True)
+                                    )
     playlists = models.ManyToManyField(PlaylistModel, related_name='liked_playlists',
-                                       blank=True, null=True)
+                                       blank=True, )
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=False, null=False,
                                 related_name='liked_content')
 
     def __str__(self):
         return f'liked by {self.user}'
+
+    def get_absolute_url(self):
+        return reverse('liked_detail', kwargs={'id': self.id})
 
     class Meta:
         verbose_name = 'liked content'
@@ -113,6 +127,9 @@ class FollowModel(models.Model):
 
     def __str__(self):
         return f'followed by {self.user}'
+
+    def get_absolute_url(self):
+        return reverse('follow_detail', kwargs={'id': self.id})
 
     class Meta:
         verbose_name = 'following'
