@@ -786,6 +786,7 @@ img.artist-profile-img {
 
 .artist-detail-info-wrapper {
     min-height: 350px;
+    font-size: 18px;
 }
 
 .artist-detail-info {
@@ -847,8 +848,12 @@ a.release-wrapper:hover .song-card{
     background-color: #1e1e1e;
 }
 
-
-
+.tabs > a{
+    color: var(--gray-font-color);
+}
+.tabs > a:hover{
+    color: #fff;
+}
 
 
 
@@ -924,6 +929,10 @@ a.release-wrapper:hover .song-card{
     .artist-discography{
         margin-top: 250px !important;
     }
+    .artist-detail .artist-profile-img{
+        width: 200px;
+        height: 200px;
+    }
 }
 
 @media (max-width: 545px) {
@@ -942,3 +951,19 @@ a.release-wrapper:hover .song-card{
     }
 }
 
+
+@media (max-width: 460px) {
+    .tabs ul li:first-of-type span{
+        display: none;
+    }
+
+    .my-tabs .content section .row{
+        display: grid !important;
+        justify-content: center;
+        grid-template-columns: auto !important;
+    }
+
+    .my-tabs .content section .row div{
+        width: auto !important;
+    }
+}

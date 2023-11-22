@@ -7,15 +7,15 @@
 {% block content %}
     <div class="container artist-detail d-flex flex-column">
         <div class="row d-flex flex-column position-relative">
-            <div class="profile-img-wrapper d-flex col-12 col-md-4 h-100 position-absolute z-1">
-                <img src="{{ artist.user.profile_img.url }}" class="artist-profile-img mx-auto my-md-auto" alt="">
+            <div class="profile-img-wrapper align-items-md-center d-flex col-12 col-md-4 h-100 position-absolute z-1">
+                <img src="{{ artist.user.profile_img.url }}" class="artist-profile-img mx-auto my-auto" alt="">
 
             </div>
             <div class="artist-detail-info-wrapper col-12 col-md-10 ms-md-auto d-flex z-0 position-relative">
-                <div class="col-8 col-lg-10 ms-auto artist-detail-info mh-100 py-3">
-                    <h1 class="artist-nickname my-2">{{ artist.nickname|upper }}</h1>
-                    <h4>Also known as {{ artist.user.first_name }} {{ artist.user.last_name }}</h4>
-                    <p></p>
+                <div class="col-12 mt-5 mt-md-0 px-2 col-md-8 col-lg-10 ms-md-auto artist-detail-info mh-100 py-3">
+                    <h1 class="artist-nickname text-center my-2 mt-5">{{ artist.nickname|upper }}</h1>
+                    <p class="">{{ artist.user.first_name }} {{ artist.user.last_name }}</p>
+
                 </div>
 
             </div>
@@ -24,14 +24,17 @@
         <div class="row mt-5 artist-discography">
             <div class="col-12">
                 <h2 class="mb-4 mt-5">Discography</h2>
+
                 <div class="my-tabs w-100 mb-3 d-flex flex-column">
-                    <div class="tabs w-100 mb-3">
-                        <ul class="d-flex gap-2 ps-0">
-                            <li class="d-block px-4 py-2 rounded-5 text-white"><a href="#tab-one">Popular Releases</a>
+                    <div class="tabs w-100 mb-3 mb-md-4 d-flex flex-column flex-md-row align-items-center">
+                        <ul class="d-flex gap-2 mb-0 ps-0 align-items-center">
+                            <li class="d-block px-4 py-2 rounded-5 text-white"><a href="#tab-one">Popular
+                                <span>Releases</span></a>
                             </li>
                             <li class=" px-4 py-2 rounded-5 text-white"><a href="#tab-two">Albums</a></li>
                             <li class=" px-4 py-2 rounded-5 text-white"><a href="#tab-three">Singles</a></li>
                         </ul>
+                        <a href="" class="ms-auto mt-3 mt-md-0">Show all</a>
                     </div>
 
                     <div class="content w-100 d-flex" style="">
@@ -40,12 +43,7 @@
                             <div class="row d-flex overflow-y-hidden" style="height: 290px">
                                 {% for album in artist.albums_by_artist.all %}
 
-                                    <div class="col-6 px-0 col-md-4 mx-md-0 col-lg-3 col-xl-2 mx-lg-0 mx-xl-4 position-relative mx-xxl-2 d-flex flex-column align-items-center">
-{#                                        <div class="card-play-button-wrapper position-absolute z-2 w-auto">#}
-{#                                            <a href="" class="card-play-button px-2 py-1"><i#}
-{#                                                    class="bi bi-play-fill"></i>#}
-{#                                            </a>#}
-{#                                        </div>#}
+                                    <div class="col-6 px-0 col-md-4 mx-md-0 col-lg-3 col-xl-2 mx-lg-0 mx-xl-4 mx-xxl-2 d-flex flex-column align-items-center">
                                         <a href="" class="release-wrapper d-flex flex-column align-items-center">
                                             <div class="song-card p-3 px-4 pb-4 rounded-3 ">
                                                 <img src="{{ album.cover.url }}" class="mb-4 rounded-3" alt="">
@@ -87,7 +85,6 @@
                                                      class="mb-4 rounded-3" alt="">
                                                 <h5>{{ song.title|truncatechars:'15' }}</h5>
                                                 <span>{{ song.uploaded_at|date:'Y' }} - Song</span>
-
                                             </div>
                                         </a>
 
@@ -96,6 +93,7 @@
                             </div>
                         </section>
                     </div>
+                    {#                    <a href="" class="mx-auto d-block mt-4 d-md-none">Show all</a>#}
 
                 </div>
             </div>

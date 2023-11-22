@@ -19,7 +19,7 @@
                 <div class="artist-post post-detail py-4 px-4 mx-1 position-relative d-flex flex-column">
                     <h1 class="text-center articles-section-header">{{ post.title|title }}</h1>
                     <p class="mb-1 detail_date">-Published at <span class="ms-1 text-white">{{ post.created_at|date:'F j, Y' }}</span></p>
-                    <p class="detail_author">-Written by <span class="ms-1 text-white">{{ post.artist.nickname }} '</span></p>
+                    <p class="detail_author">-Written by <a href="{{ post.artist.get_absolute_url }}" class="ms-1 text-white">{{ post.artist.nickname }}</a></p>
 {#                    <hr class="border-2 my-1 opacity-75">#}
                     <p cla ss="h-auto overflow-hidden">{{post.text|capfirst|safe }}</p>
                     <div class="post-options mb-2 mt-auto d-flex justify-content-start">
