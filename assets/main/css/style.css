@@ -844,28 +844,38 @@ img.artist-profile-img {
 }
 
 
-a.release-wrapper:hover .song-card{
+a.release-wrapper:hover .song-card {
     background-color: #1e1e1e;
 }
 
-.tabs > a{
+.tabs > a {
     color: var(--gray-font-color);
 }
-.tabs > a:hover{
+
+.tabs > a:hover {
     color: #fff;
 }
 
+.play-pause-button {
+    /*display: none;*/
+    font-size: 30px;
+    color: #fff;
+    border: none;
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50%;
+    background-color: var(--green);
+}
 
-
-
-
-
-
-
-
-
-
-
+#audio-player {
+    top: 45%;
+    right: 15%;
+}
+#audio-player audio{
+    z-index: 5;
+    width: 100%;
+    bottom: 0;
+}
 
 /*media queries*/
 
@@ -926,10 +936,12 @@ a.release-wrapper:hover .song-card{
     .artist-detail-info-wrapper {
         top: 200px;
     }
-    .artist-discography{
+
+    .artist-discography {
         margin-top: 250px !important;
     }
-    .artist-detail .artist-profile-img{
+
+    .artist-detail .artist-profile-img {
         width: 200px;
         height: 200px;
     }
@@ -953,17 +965,17 @@ a.release-wrapper:hover .song-card{
 
 
 @media (max-width: 460px) {
-    .tabs ul li:first-of-type span{
+    .tabs ul li:first-of-type span {
         display: none;
     }
 
-    .my-tabs .content section .row{
+    .my-tabs .content section .row {
         display: grid !important;
         justify-content: center;
         grid-template-columns: auto !important;
     }
 
-    .my-tabs .content section .row div{
+    .my-tabs .content section .row div {
         width: auto !important;
     }
 }

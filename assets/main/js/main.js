@@ -111,3 +111,48 @@ const addActiveTab = tab => {
     matchingSection.classList.add("d-block");
 }
 
+
+// var audio = document.getElementById("myAudio");
+//
+// function playPause() {
+//     if (audio.paused) {
+//         audio.play();
+//     } else {
+//         audio.pause();
+//     }
+// }
+//
+// var audioPlayer = document.getElementById("play-pause-button");
+// function showAudioPlayer() {
+//     audioPlayer.style.display = "block";
+// }
+//
+// function hideAudioPlayer() {
+//     audioPlayer.style.display = "none";
+// }
+
+
+function playPause(songId) {
+    const audio = document.getElementById(`audio-${songId}`);
+    const button = document.getElementById(`play-pause-button-${songId}`);
+
+    if (audio.paused) {
+        audio.play();
+        button.classList.remove('bi-play-fill');
+        button.classList.add('bi-pause-fill');
+    } else {
+        audio.pause();
+        button.classList.remove('bi-pause-fill');
+        button.classList.add('bi-play-fill');
+    }
+}
+//
+// function showAudioPlayer(songId) {
+//     var audioPlayer = document.getElementById('audio-player-${songId}');
+//     audioPlayer.style.display = "block";
+// }
+//
+// function hideAudioPlayer(songId) {
+//     var audioPlayer = document.getElementById('audio-player-${songId}');
+//     audioPlayer.style.display = "none";
+// }

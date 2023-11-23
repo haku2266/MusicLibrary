@@ -78,7 +78,32 @@
                         <section class="tab-content m-auto w-100" id="tab-three">
                             <div class="overflow-y-hidden text-white row d-flex" style="height: 290px">
                                 {% for song in artist.songs_by_artist.all %}
-                                    <div class="col-6 px-0 col-md-4 mx-md-0 col-lg-3 col-xl-2 mx-lg-0 mx-xl-4 mx-xxl-2 d-flex flex-column align-items-center">
+                                    <div class="col-6 px-0 position-relative col-md-4 mx-md-0 col-lg-3 col-xl-2 mx-lg-0 mx-xl-4 mx-xxl-2 d-flex flex-column align-items-center">
+
+                                        <div id="audio-player" class="position-absolute">
+                                            <audio id="audio-{{ song.id }}" class="d-none position-relative" controls>
+                                                <source src="{{ song.file.url }}" type="audio/mp3">
+                                                Your browser does not support the audio tag.
+                                            </audio>
+                                            <button onclick="playPause('{{ song.id }}')"
+                                                    id="play-pause-button-{{ song.id }}"
+                                                    class="p-0 play-pause-button bi bi-play-fill">
+                                                <div>
+{#                                                    <button onclick="document.getElementById('audio-{{ song.id }}').play()">Play#}
+{#                                                    </button>#}
+{#                                                    <button onclick="document.getElementById('audio-{{ song.id }}').pause()">Pause#}
+{#                                                    </button>#}
+{#                                                    <button onclick="document.getElementById('audio-{{ song.id }}').volume += 0.1">#}
+                                                    {#                                                        Vol +#}
+                                                    {#                                                    </button>#}
+                                                    {#                                                    <button onclick="document.getElementById('audio-{{ song.id }}').volume -= 0.1">#}
+                                                    {#                                                        Vol -#}
+                                                    {#                                                    </button>#}
+                                                </div>
+                                                {#                                                <i class="bi bi-play-fill d-flex align-items-center justify-content-center"></i>#}
+                                            </button>
+                                        </div>
+
                                         <a href="" class="release-wrapper d-flex flex-column align-items-center">
                                             <div class="song-card p-3 px-4 pb-4 rounded-3">
                                                 <img src="{{ song.cover.url }}"
