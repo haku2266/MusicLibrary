@@ -112,47 +112,76 @@ const addActiveTab = tab => {
 }
 
 
-// var audio = document.getElementById("myAudio");
+// function seek(songID) {
+//     const audio = document.getElementById(`audio-${songID}`);
 //
-// function playPause() {
-//     if (audio.paused) {
-//         audio.play();
-//     } else {
-//         audio.pause();
-//     }
+//     let seekSlider = document.querySelector(`#seekslider-${songID}`);
+//     console.log(audio.currentTime)
+//     console.log(audio.duration / 60)
+//     // audio.currentTime = seekSlider.value * (audio.duration / 60);
+//     // console.log(audio.currentTime)
+//     audio.play();
 // }
-//
-// var audioPlayer = document.getElementById("play-pause-button");
-// function showAudioPlayer() {
-//     audioPlayer.style.display = "block";
-// }
-//
-// function hideAudioPlayer() {
-//     audioPlayer.style.display = "none";
-// }
-
 
 function playPause(songId) {
     const audio = document.getElementById(`audio-${songId}`);
     const button = document.getElementById(`play-pause-button-${songId}`);
+    const audioPlayer = document.getElementById(`audio-player-${songId}`);
+    let volumeSlider = document.querySelector(`#volume-control-${songId}`);
+    volumeSlider.addEventListener("change", function (e) {
+        audio.volume = e.currentTarget.value / 100;
+    })
+    //
+
+    let seekSlider = document.querySelector(`#seekslider-${songId}`);
+
+
+    let isDragging = false;
+
+
+    // working track
+
+    audio.addEventListener('timeupdate', function () {
+        seekSlider.value = (audio.currentTime / audio.duration) * 100;
+    });
+
+    //
+    // Update the seek slider value as the audio is playing
+
+    //
+    // // Handle user dragging the seek slider
+    // seekSlider.addEventListener('mousedown', function () {
+    //     audio.pause(); // Pause the audio while dragging
+    // });
+    //
+    // seekSlider.addEventListener('mouseup', function () {
+    //     audio.play(); // Resume playing the audio after dragging
+    // });
+    //
+    // seekSlider.addEventListener('touchstart', function () {
+    //     audio.pause();
+    // });
+    //
+    // seekSlider.addEventListener('touchend', function () {
+    //     audio.play();
+    // });
+    //
 
     if (audio.paused) {
         audio.play();
         button.classList.remove('bi-play-fill');
         button.classList.add('bi-pause-fill');
+        audioPlayer.classList.add('playing')
+        seekSlider.style.display = "block"
+        volumeSlider.style.display = "block";
     } else {
         audio.pause();
         button.classList.remove('bi-pause-fill');
         button.classList.add('bi-play-fill');
+        audioPlayer.classList.remove('playing');
+        seekSlider.style.display = "none"
+        volumeSlider.style.display = "none";
+
     }
+
 }
-//
-// function showAudioPlayer(songId) {
-//     var audioPlayer = document.getElementById('audio-player-${songId}');
-//     audioPlayer.style.display = "block";
-// }
-//
-// function hideAudioPlayer(songId) {
-//     var audioPlayer = document.getElementById('audio-player-${songId}');
-//     audioPlayer.style.display = "none";
-// }

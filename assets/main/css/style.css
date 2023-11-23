@@ -867,15 +867,67 @@ a.release-wrapper:hover .song-card {
     background-color: var(--green);
 }
 
-#audio-player {
+.audio-player {
     top: 45%;
     right: 15%;
 }
-#audio-player audio{
+
+.audio-player audio {
     z-index: 5;
     width: 100%;
     bottom: 0;
 }
+
+.playing {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(43, 47, 50, 0.15);
+    backdrop-filter: blur(5px);
+    padding: 15px;
+    text-align: center;
+}
+
+.playing label{
+    display: block !important;
+}
+.playing input{
+    accent-color: var(--green);
+    display: block !important;
+}
+
+
+.volume-control{
+    display: none ;
+}
+
+.time-control{
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*media queries*/
 
