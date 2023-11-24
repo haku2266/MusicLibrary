@@ -53,8 +53,10 @@ def artist_registration_view(request):
 
 def artist_detail_view(request, id):
     page_title = 'artist'
-    obj = ArtistModel.objects.prefetch_related('songs_by_artist').prefetch_related('albums_by_artist') \
-        .select_related('user').get(id=id)
+    obj = ArtistModel.objects.prefetch_related('songs_by_artist').prefetch_related('albums_by_artist')\
+        .prefetch_related('posts').select_related('user').get(id=id)
+    for i in obj.albums_by_artist.all():
+        print(i.liked_albums.all())
     return render(request, template_name='artist_detail.html', context={
         'artist': obj,
         'page_title': page_title

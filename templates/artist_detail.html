@@ -1,9 +1,9 @@
 {% extends 'layouts/base.html' %}
 
+{% load  %}
 {% block page_title %}
     Artist Detail
 {% endblock %}
-
 {% block content %}
     <div class="container artist-detail d-flex flex-column">
         <div class="row d-flex flex-column position-relative">
@@ -41,18 +41,21 @@
                         <section class="tab-content m-auto w-100 d-block" id="tab-one">
 
                             <div class="row d-flex overflow-y-hidden" style="height: 290px">
-                                {% for album in artist.albums_by_artist.all %}
+                                {% with artist.albums_by_artist.all as albums %}
+                                    {% for album in albums %}
+                                        <div class="col-6 px-0 col-md-4 mx-md-0 col-lg-3 col-xl-2 mx-lg-0 mx-xl-4 mx-xxl-2 d-flex flex-column align-items-center">
+                                            <a href="" class="release-wrapper d-flex flex-column align-items-center">
+                                                <div class="song-card p-3 px-4 pb-4 rounded-3 ">
+                                                    <img src="{{ album.cover.url }}" class="mb-4 rounded-3" alt="">
+                                                    <h5>{{ album.title|truncatechars:'15' }}</h5>
+                                                    <span>{{ album.uploaded_at|date:'Y' }} - Album</span>
+                                                    <span>{{ album.liked_albums|length_query }} many people liked</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    {% endfor %}
+                                {% endwith %}
 
-                                    <div class="col-6 px-0 col-md-4 mx-md-0 col-lg-3 col-xl-2 mx-lg-0 mx-xl-4 mx-xxl-2 d-flex flex-column align-items-center">
-                                        <a href="" class="release-wrapper d-flex flex-column align-items-center">
-                                            <div class="song-card p-3 px-4 pb-4 rounded-3 ">
-                                                <img src="{{ album.cover.url }}" class="mb-4 rounded-3" alt="">
-                                                <h5>{{ album.title|truncatechars:'15' }}</h5>
-                                                <span>{{ album.uploaded_at|date:'Y' }} - Album</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                {% endfor %}
                             </div>
 
                         </section>
@@ -91,10 +94,13 @@
                                                        class="w-100 volume-control">
                                             </div>
 
-                                            <div >
-                                                <label for="seekslider-{{ song.id }}" class="d-none text-start">Time</label>
-                                                <input id="seekslider-{{ song.id }}" type="range" min="0" max="100" value="0"
-                                                       step="1" class="time-control" disabled onchange="seek({{ song.id }})">
+                                            <div>
+                                                <label for="seekslider-{{ song.id }}"
+                                                       class="d-none text-start">Time</label>
+                                                <input id="seekslider-{{ song.id }}" type="range" min="0" max="100"
+                                                       value="0"
+                                                       step="1" class="time-control" disabled
+                                                       onchange="seek({{ song.id }})">
                                             </div>
 
                                             <button onclick="playPause('{{ song.id }}')"
@@ -122,6 +128,40 @@
                 </div>
             </div>
 
+        </div>
+
+        <div class="row mt-5 posts_by_artist">
+            <div class="col-12">
+                <h2 class="mb-4 mt-5">Posts</h2>
+                <div class="row row-gap-3   ">
+                    {% for post in artist.posts.all %}
+                        <a class="col-12 col-md-4 position-relative" href="{{ post.get_absolute_url }}">
+
+                            <i class="editor-gem position-absolute bi bi-gem
+                        {% if request.user.artist == post.artist %}
+                            d-block
+                        {% else %}
+                            d-none
+                        {% endif %}
+                            "></i>
+                            <div class="artist-post only py-2 px-3 mx-1 position-relative d-flex flex-column">
+                                <span id="post_time_since" class="
+                                {% if request.user.artist == post.artist %}
+                                        ms-3
+                                    {% else %}
+                                        ms-0
+                                    {% endif %}
+                            ">{{ post.created_at|timesince }} ago</span>
+                                <h2 class="mt-2 fs-5 text-white">{{ post.title|default:'untitled'|title|truncatechars:'18' }}</h2>
+                            </div>
+
+                        </a>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
         </div>
     </div>
 {% endblock %}

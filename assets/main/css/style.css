@@ -857,7 +857,6 @@ a.release-wrapper:hover .song-card {
 }
 
 .play-pause-button {
-    /*display: none;*/
     font-size: 30px;
     color: #fff;
     border: none;
@@ -910,6 +909,51 @@ a.release-wrapper:hover .song-card {
 .time-control{
     display: none;
 }
+
+
+.artist-detail .artist-post{
+    height: auto;
+    background-color: var(--light-black);
+    background-image: none;
+    transition: 250ms background-color;
+}
+
+.artist-detail .artist-post:hover{
+    background-color: var(---light-black-hover);
+}
+
+span#post_time_since {
+    font-family: var(--body-font) !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

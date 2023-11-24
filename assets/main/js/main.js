@@ -1,7 +1,5 @@
-// const toggleMenu = () => {
-//         document.body.classList.toggle("open");
-//       };
 
+// page title appearing behind navbar start
 
 let navbarText = document.querySelector('.page-title');
 
@@ -34,7 +32,12 @@ window.addEventListener('scroll', function () {
         navbar.style.backgroundColor = initialColor;
     }
 });
+// page title appearing behind navbar end
 
+
+
+
+// nav burger start
 
 // Number of clicks on the trigger element initially set on 0
 let numOfClicks = 0;
@@ -54,6 +57,11 @@ const toggleMenu = () => {
     isNumOfClicksEven ? bodyEl.style.overflow = "auto" : bodyEl.style.overflow = "hidden";
 };
 
+// nav burger end
+
+
+// password input to text input eye button start
+
 $(document).ready(function () {
     $(".toggle-password").click(function () {
         var passwordInput = $(".password-input");
@@ -69,6 +77,10 @@ $(document).ready(function () {
 });
 
 
+// password input to text input eye button end
+
+
+// eye button #2 start
 $(document).ready(function () {
     $(".toggle-confirm-password").click(function () {
         var passwordInput = $(".confirm-password-input");
@@ -83,6 +95,11 @@ $(document).ready(function () {
     });
 });
 
+// eye button #2 start
+
+
+
+// song&album tab start
 
 const tabs = document.querySelectorAll(".my-tabs .tabs li");
 const sections = document.querySelectorAll(".my-tabs .tab-content");
@@ -111,18 +128,12 @@ const addActiveTab = tab => {
     matchingSection.classList.add("d-block");
 }
 
+// song&album tab start
 
-// function seek(songID) {
-//     const audio = document.getElementById(`audio-${songID}`);
-//
-//     let seekSlider = document.querySelector(`#seekslider-${songID}`);
-//     console.log(audio.currentTime)
-//     console.log(audio.duration / 60)
-//     // audio.currentTime = seekSlider.value * (audio.duration / 60);
-//     // console.log(audio.currentTime)
-//     audio.play();
-// }
 
+
+
+// play button code start
 function playPause(songId) {
     const audio = document.getElementById(`audio-${songId}`);
     const button = document.getElementById(`play-pause-button-${songId}`);
@@ -139,33 +150,9 @@ function playPause(songId) {
     let isDragging = false;
 
 
-    // working track
-
     audio.addEventListener('timeupdate', function () {
         seekSlider.value = (audio.currentTime / audio.duration) * 100;
     });
-
-    //
-    // Update the seek slider value as the audio is playing
-
-    //
-    // // Handle user dragging the seek slider
-    // seekSlider.addEventListener('mousedown', function () {
-    //     audio.pause(); // Pause the audio while dragging
-    // });
-    //
-    // seekSlider.addEventListener('mouseup', function () {
-    //     audio.play(); // Resume playing the audio after dragging
-    // });
-    //
-    // seekSlider.addEventListener('touchstart', function () {
-    //     audio.pause();
-    // });
-    //
-    // seekSlider.addEventListener('touchend', function () {
-    //     audio.play();
-    // });
-    //
 
     if (audio.paused) {
         audio.play();
@@ -183,5 +170,7 @@ function playPause(songId) {
         volumeSlider.style.display = "none";
 
     }
-
 }
+
+// play button code end
+
