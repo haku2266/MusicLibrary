@@ -172,5 +172,39 @@ function playPause(songId) {
     }
 }
 
-// play button code end
+
+var video = document.getElementById("myVideo");
+video.volume = 0.02
+// Get the button
+var btn = document.getElementById("myBtn");
+
+// Pause and play the video, and change the button text
+function myFunction() {
+  if (video.paused) {
+    video.play();
+    btn.classList.remove('bi-play-fill');
+    btn.classList.add('bi-pause-fill');
+  } else {
+    video.pause();
+    btn.classList.remove('bi-pause-fill');
+    btn.classList.add('bi-play-fill');
+  }
+}
+
+var btn1 = document.getElementById('myBtnUnmute')
+
+function unMute() {
+
+    if (video.muted){
+        video.muted = !video.muted
+        btn1.classList.remove('bi-volume-mute-fill')
+        btn1.classList.add('bi-volume-up-fill')
+
+    }
+    else {
+        video.muted = !video.muted
+        btn1.classList.remove('bi-volume-up-fill')
+        btn1.classList.add('bi-mute-fill')
+    }
+}
 

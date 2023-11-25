@@ -1,0 +1,84 @@
+{% extends 'layouts/base.html' %}
+
+{% load my_tags %}
+{% block page_title %}
+    Album Detail
+{% endblock %}
+
+{% block content %}
+    <div class="container album-detail d-flex flex-column">
+        <div class="row album-detail-header p-3 mt-5">
+            <div class="col-lg-4 col-xxl-3 d-flex align-items-center justify-content-center"><img
+                    src="{{ album.cover.url }}" alt="{{ album.title }}-album cover"></div>
+            <div class="col-lg-8 mt-4 mt-lg-0 col-xxl-9 d-flex flex-column justify-content-center align-items-center align-items-lg-start">
+                <span class="fs-5 ms-1 fw-light">Album</span>
+                <h1 class="text-white">{{ album.title }}</h1>
+                <span class="fs-5 ms-1 fw-light"> <a class="fw-medium text-white"
+                                                     href="{{ album.artist.get_absolute_url }}">{{ album.artist }}</a>    | {{ album.uploaded_at|date:'Y' }}</span>
+            </div>
+        </div>
+        <div class="row album-tracks mt-4">
+            {% for song in album.songs_in_album.all %}
+                <div class="col-12 mx-2 position-relative d-flex align-items-center" style="height: 60px">
+
+                    <div id="audio-player-{{ song.id }}" class="audio-player">
+                        <audio id="audio-{{ song.id }}" class="d-none position-relative"
+                               controls>
+                            <source src="{{ song.file.url }}" type="audio/mp3">
+                            Your browser does not support the audio tag.
+                        </audio>
+                        <div class="d-none">
+                            <label for="volume-control-{{ song.id }}" class="d-none text-start">Volume</label>
+                            <input type="range" id="volume-control-{{ song.id }}"
+                                   class="w-100 volume-control">
+                        </div>
+
+                        <button onclick="playPause('{{ song.id }}')"
+                                id="play-pause-button-{{ song.id }}"
+                                class="p-0 play-pause-button bi bi-play-fill">
+                        </button>
+                    </div>
+
+                    <a href="{% url 'song_detail' id=song.id %}">
+                        <h2 class="text-white mb-0 fs-5">
+                            {{ song.title|truncatechars:'20' }}
+                        </h2>
+                    </a>
+                    {% if request.user.is_authenticated %}
+                        <div class="user-song-options ms-auto">
+                            <a href="{% url 'like_song' id=song.id %}" class="like_song">
+                                <i class="bi
+                            {% with request.user.liked_content.songs.all as query %}
+                                  {% if query %}
+                                        {% if query|is_inside_query:song %}
+                                                    bi-heart-fill
+                                        {% else %}
+                                                    bi-heart
+                                        {% endif %}
+                                   {% else %}
+                                            bi-heart
+                                  {% endif %}
+
+                          {% endwith %}
+                            "></i>
+                            </a>
+                            {#                                FURTHER AFTER PLAYLIST THING#}
+                            {#                        <a href="{% url 'add_song' id=song.id %}" class="save_to_playlist">#}
+                            {#                            <i class="bi#}
+
+                            {#                             {% if request.user.playlists_of_user.all|is_inside_query: %}#}
+                            {#                             	#}
+                            {#                             {% endif %} #}
+                            {#                             bi-bookmark"></i>#}
+                            {#                        </a>#}
+                        </div>
+                    {% endif %}
+
+
+                </div>
+            {% endfor %}
+
+            <div class="col-12"></div>
+        </div>
+    </div>
+{% endblock %}

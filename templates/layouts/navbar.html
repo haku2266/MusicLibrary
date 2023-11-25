@@ -19,7 +19,7 @@
 
     }
 </style>
-<div class="div position-sticky z-2 top-0">
+<div class="div position-sticky z-3 top-0">
     <div class="custom-nav position-relative w-100 top-0 start-0">
         <nav class="position-absolute z-1 d-flex justify-content-center w-100 h-100 my-nav">
             <div class="container d-flex justify-content-between align-items-center h-100">
@@ -37,26 +37,25 @@
 
                             ">home</a>
                     </li>
-                    <li class="d-none d-lg-block">
-                        {% url 'user_posts_list' as user_post_list %}
-                        <a href="{{ user_post_list }}" class="
-
-                        {% if request.path == user_post_list %}
-                        	active
-                        {% endif %}
-                        ">posts</a>
-                    </li>
+{#                    <li class="d-none d-lg-block">#}
+{#                        {% url 'user_posts_list' as user_post_list %}#}
+{#                        <a href="{{ user_post_list }}" class="#}
+{##}
+{#                        {% if request.path == user_post_list %}#}
+{#                        	active#}
+{#                        {% endif %}#}
+{#                        ">posts</a>#}
+{#                    </li>#}
                     {% if request.user.is_authenticated %}
                         {% if request.user.artist %}
                             <li class="d-none d-lg-block">
-                                {% url 'create_post' as create_post %}
-                                <a href="{{ create_post }}" class="
+                                <a href="{{ request.user.artist.get_absolute_url }}" class="
 
-                                {% if request.path == create_post %}
+                                {% if request.path == request.user.artist.get_absolute_url %}
                                 	active
                                 {% endif %}
                                 ">
-                                    Create Post
+                                    My Profile
                                 </a>
                             </li>
 
@@ -79,6 +78,18 @@
                                     	active
                                     {% endif %}
                                 ">Artist Register</a>
+                            </li>
+                        {% endif %}
+
+                        {% if not request.user.artist %}
+                            <li class="d-none d-lg-block">
+                                {% url 'user_profile' as user_profile %}
+                                <a href="{{ user_profile }}" class="
+
+                            {% if request.path == user_profile %}
+                                active
+                            {% endif %}
+                            ">My Profile</a>
                             </li>
                         {% endif %}
 
@@ -123,9 +134,9 @@
         <li style="animation-delay: 0.1s">
             <a href="{% url 'home' %}" class="navigation__link" data-text="home">home</a>
         </li>
-        <li style="animation-delay: 0.2s">
-            <a href="{% url 'user_posts_list' %}" class="navigation__link" data-text="posts">posts</a>
-        </li>
+{#        <li style="animation-delay: 0.2s">#}
+{#            <a href="{% url 'user_posts_list' %}" class="navigation__link" data-text="posts">posts</a>#}
+{#        </li>#}
         {% if request.user.is_authenticated %}
 
             {% if request.user.artist %}
