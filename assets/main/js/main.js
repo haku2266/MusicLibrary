@@ -204,7 +204,7 @@ function unMute() {
     else {
         video.muted = !video.muted
         btn1.classList.remove('bi-volume-up-fill')
-        btn1.classList.add('bi-mute-fill')
+        btn1.classList.add('bi-volume-mute-fill')
     }
 }
 
