@@ -1,6 +1,6 @@
 from django.db import models
 from musiclibrary.models import ArtistModel
-
+from django.shortcuts import reverse
 
 class TagModel(models.Model):
     tag = models.CharField(max_length=100, blank=False, null=False)
@@ -23,6 +23,8 @@ class CreatePostModel(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('post_detail', kwargs={'id': self.id})
     class Meta:
         verbose_name = 'post'
         verbose_name_plural = 'posts'

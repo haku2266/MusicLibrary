@@ -1,0 +1,15 @@
+{% extends 'layouts/base.html' %}
+
+{% load my_tags %}
+{% block page_title %}
+    Album Detail
+{% endblock %}
+
+{% block content %}
+    <div class="container song-detail d-flex flex-column align-items-center">
+        <h1 class="text-white">{{ song.title }}</h1>
+        <p class="my-container">
+            {{ song.lyrics|default:'Not available' }}
+        </p>
+    </div>
+{% endblock %}

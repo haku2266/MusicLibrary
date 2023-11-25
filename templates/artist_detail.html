@@ -1,14 +1,15 @@
 {% extends 'layouts/base.html' %}
 
+{% load my_tags %}
 {% block page_title %}
     Artist Detail
 {% endblock %}
-
 {% block content %}
     <div class="container artist-detail d-flex flex-column">
         <div class="row d-flex flex-column position-relative">
             <div class="profile-img-wrapper align-items-md-center d-flex col-12 col-md-4 h-100 position-absolute z-1">
-                <img src="{{ artist.user.profile_img.url }}" class="artist-profile-img mx-auto my-auto" alt="">
+                <img src="{{ artist.user.profile_img.url }}" class="artist-profile-img mx-auto my-auto" alt="
+                                                        profile picture">
 
             </div>
             <div class="artist-detail-info-wrapper col-12 col-md-10 ms-md-auto d-flex z-0 position-relative">
@@ -34,86 +35,139 @@
                             <li class=" px-4 py-2 rounded-5 text-white"><a href="#tab-two">Albums</a></li>
                             <li class=" px-4 py-2 rounded-5 text-white"><a href="#tab-three">Singles</a></li>
                         </ul>
-                        <a href="" class="ms-auto mt-3 mt-md-0">Show all</a>
+                        <a href="{% url 'all_albums' artist.user.id %}" class="ms-auto mt-3 mt-md-0 show-all">Show
+                            all</a>
                     </div>
 
                     <div class="content w-100 d-flex" style="">
                         <section class="tab-content m-auto w-100 d-block" id="tab-one">
 
-                            <div class="row d-flex overflow-y-hidden" style="height: 290px">
-                                {% for album in artist.albums_by_artist.all %}
+                            <div class="row d-flex overflow-y-hidden" style="height: 315px">
+                                {% with artist.songs_by_artist.all as songs %}
 
-                                    <div class="col-6 px-0 col-md-4 mx-md-0 col-lg-3 col-xl-2 mx-lg-0 mx-xl-4 mx-xxl-2 d-flex flex-column align-items-center">
-                                        <a href="" class="release-wrapper d-flex flex-column align-items-center">
-                                            <div class="song-card p-3 px-4 pb-4 rounded-3 ">
-                                                <img src="{{ album.cover.url }}" class="mb-4 rounded-3" alt="">
-                                                <h5>{{ album.title|truncatechars:'15' }}</h5>
-                                                <span>{{ album.uploaded_at|date:'Y' }} - Album</span>
+                                    {% for song in songs|query_order:'liked_songs'|slice:':6' %}
+                                        <div class="col-6 px-0 position-relative col-md-4 mx-md-0 col-lg-3 col-xl-2 mx-lg-0 mx-xl-4 mx-xxl-2 d-flex flex-column align-items-center">
+                                            <div id="audio-player-{{ song.id }}" class="audio-player position-absolute">
+                                                <audio id="audio-{{ song.id }}" class="d-none position-relative"
+                                                       controls>
+                                                    <source src="{{ song.file.url }}" type="audio/mp3">
+                                                    Your browser does not support the audio tag.
+                                                </audio>
+                                                <div class="">
+                                                    <label for="volume-control-{{ song.id }}" class="d-none text-start">Volume</label>
+                                                    <input type="range" id="volume-control-{{ song.id }}"
+                                                           class="w-100 volume-control">
+                                                </div>
+
+                                                <div>
+                                                    <label for="seekslider-{{ song.id }}"
+                                                           class="d-none text-start">Time</label>
+                                                    <input id="seekslider-{{ song.id }}" type="range" min="0" max="100"
+                                                           value="0"
+                                                           step="1" class="time-control" disabled
+                                                           onchange="seek({{ song.id }})">
+                                                </div>
+
+                                                <button onclick="playPause('{{ song.id }}')"
+                                                        id="play-pause-button-{{ song.id }}"
+                                                        class="p-0 play-pause-button bi bi-play-fill">
+                                                </button>
                                             </div>
-                                        </a>
-                                    </div>
-                                {% endfor %}
+
+
+                                            <a href="{% url 'song_detail' id=song.id %}"
+                                               class="release-wrapper d-flex flex-column align-items-center">
+                                                <div class="song-card p-3 px-4 pb-4 rounded-3 ">
+                                                    <img src="{{ song.cover.url }}" class="mb-4 rounded-3"
+                                                         alt="{{ song.title }}-song cover">
+                                                    <h5>{{ song.title|truncatechars:'15' }}</h5>
+                                                    <span>{{ song.uploaded_at|date:'Y' }} - Single</span>
+                                                    <br>
+                                                    <span class="mt-1">{{ song.liked_songs.all|length_query }} pe{{ song.liked_songs.all|length_query|pluralize:"rson,ople" }} liked</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    {% empty %}
+                                        <h1 class="text-center  text-white">No realises so far</h1>
+                                    {% endfor %}
+                                {% endwith %}
+
+
                             </div>
 
                         </section>
                         <section class="tab-content m-auto w-100" id="tab-two">
 
-                            <div class="row d-flex overflow-y-hidden" style="height: 290px">
-                                {% for album in artist.albums_by_artist.all %}
+                            <div class="row d-flex overflow-y-hidden" style="height: 315px">
+                                {% for album in artist.albums_by_artist.all|slice:':6' %}
                                     <div class="col-6 px-0 col-md-4 mx-md-0 col-lg-3 col-xl-2 mx-lg-0 mx-xl-4 mx-xxl-2 d-flex flex-column align-items-center">
-                                        <a href="" class="release-wrapper d-flex flex-column align-items-center">
+                                        <a href="{{ album.get_absolute_url }}"
+                                           class="release-wrapper d-flex flex-column align-items-center">
                                             <div class="song-card p-3 px-4 pb-4 rounded-3">
                                                 <img src="{{ album.cover.url }}"
-                                                     class="mb-4 rounded-3" alt="">
+                                                     class="mb-4 rounded-3" alt="album cover">
                                                 <h5>{{ album.title|truncatechars:'15' }}</h5>
                                                 <span>{{ album.uploaded_at|date:'Y' }} - Album</span>
+                                                <br>
+                                                <span class="mt-1">{{ album.liked_albums.all|length_query }} pe{{ album.liked_albums.all|length_query|pluralize:"rson,ople" }} liked</span>
 
                                             </div>
                                         </a>
                                     </div>
+                                {% empty %}
+                                    <h1 class="text-center text-white">No albums uploaded so far</h1>
+
                                 {% endfor %}
                             </div>
 
                         </section>
                         <section class="tab-content m-auto w-100" id="tab-three">
-                            <div class="overflow-y-hidden text-white row d-flex" style="height: 290px">
-                                {% for song in artist.songs_by_artist.all %}
+                            <div class="overflow-y-hidden text-white row d-flex" style="height: 315px">
+                                {% for song in artist.songs_by_artist.all|slice:':6' %}
                                     <div class="col-6 px-0 position-relative col-md-4 mx-md-0 col-lg-3 col-xl-2 mx-lg-0 mx-xl-4 mx-xxl-2 d-flex flex-column align-items-center">
 
-                                        <div id="audio-player" class="position-absolute">
+                                        <div id="audio-player-{{ song.id }}" class="audio-player position-absolute">
                                             <audio id="audio-{{ song.id }}" class="d-none position-relative" controls>
                                                 <source src="{{ song.file.url }}" type="audio/mp3">
                                                 Your browser does not support the audio tag.
                                             </audio>
+                                            <div class="">
+                                                <label for="volume-control-{{ song.id }}" class="d-none text-start">Volume</label>
+                                                <input type="range" id="volume-control-{{ song.id }}"
+                                                       class="w-100 volume-control">
+                                            </div>
+
+                                            <div>
+                                                <label for="seekslider-{{ song.id }}"
+                                                       class="d-none text-start">Time</label>
+                                                <input id="seekslider-{{ song.id }}" type="range" min="0" max="100"
+                                                       value="0"
+                                                       step="1" class="time-control" disabled
+                                                       onchange="seek({{ song.id }})">
+                                            </div>
+
                                             <button onclick="playPause('{{ song.id }}')"
                                                     id="play-pause-button-{{ song.id }}"
                                                     class="p-0 play-pause-button bi bi-play-fill">
-                                                <div>
-{#                                                    <button onclick="document.getElementById('audio-{{ song.id }}').play()">Play#}
-{#                                                    </button>#}
-{#                                                    <button onclick="document.getElementById('audio-{{ song.id }}').pause()">Pause#}
-{#                                                    </button>#}
-{#                                                    <button onclick="document.getElementById('audio-{{ song.id }}').volume += 0.1">#}
-                                                    {#                                                        Vol +#}
-                                                    {#                                                    </button>#}
-                                                    {#                                                    <button onclick="document.getElementById('audio-{{ song.id }}').volume -= 0.1">#}
-                                                    {#                                                        Vol -#}
-                                                    {#                                                    </button>#}
-                                                </div>
-                                                {#                                                <i class="bi bi-play-fill d-flex align-items-center justify-content-center"></i>#}
                                             </button>
                                         </div>
 
-                                        <a href="" class="release-wrapper d-flex flex-column align-items-center">
+                                        <a href="{% url 'song_detail' id=song.id %}"
+                                           class="release-wrapper d-flex flex-column align-items-center">
                                             <div class="song-card p-3 px-4 pb-4 rounded-3">
                                                 <img src="{{ song.cover.url }}"
-                                                     class="mb-4 rounded-3" alt="">
+                                                     class="mb-4 rounded-3" alt="song cover">
                                                 <h5>{{ song.title|truncatechars:'15' }}</h5>
                                                 <span>{{ song.uploaded_at|date:'Y' }} - Song</span>
+                                                <br>
+                                                <span class="mt-1">{{ song.liked_songs.all|length_query }} pe{{ song.liked_songs.all|length_query|pluralize:"rson,ople" }} liked</span>
+
                                             </div>
                                         </a>
 
                                     </div>
+                                {% empty %}
+                                    <h1 class="text-center text-white">No songs uploaded so far</h1>
                                 {% endfor %}
                             </div>
                         </section>
@@ -123,6 +177,45 @@
                 </div>
             </div>
 
+        </div>
+
+        <div class="row mt-5 posts_by_artist">
+            <div class="col-12">
+                <div class="d-flex align-items-center">
+                    <h2 class="mb-4 mt-5 me-auto">Posts</h2>
+                    <a href="{% url 'user_posts_list' id=artist.user.id %}" class="mt-auto mb-3 show-all">Show all</a>
+
+                </div>
+                <div class="row row-gap-3">
+                    {% for post in artist.posts.all|slice:':6' %}
+                        <a class="col-12 col-md-4 position-relative" href="{{ post.get_absolute_url }}">
+
+                            <i class="editor-gem position-absolute bi bi-gem
+                        {% if request.user.artist == post.artist %}
+                            d-block
+                        {% else %}
+                            d-none
+                        {% endif %}
+                            "></i>
+                            <div class="artist-post only py-2 px-3 mx-1 position-relative d-flex flex-column">
+                                <span id="post_time_since" class="
+                                {% if request.user.artist == post.artist %}
+                                        ms-3
+                                    {% else %}
+                                        ms-0
+                                    {% endif %}
+                            ">{{ post.created_at|timesince }} ago</span>
+                                <h2 class="mt-2 fs-5 text-white">{{ post.title|default:'untitled'|title|truncatechars:'18' }}</h2>
+                            </div>
+
+                        </a>
+                    {% empty %}
+                        <h2 class="text-white text-center">No posts so far</h2>
+                    {% endfor %}
+
+                </div>
+
+            </div>
         </div>
     </div>
 {% endblock %}

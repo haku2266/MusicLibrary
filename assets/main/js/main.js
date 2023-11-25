@@ -1,7 +1,5 @@
-// const toggleMenu = () => {
-//         document.body.classList.toggle("open");
-//       };
 
+// page title appearing behind navbar start
 
 let navbarText = document.querySelector('.page-title');
 
@@ -34,7 +32,12 @@ window.addEventListener('scroll', function () {
         navbar.style.backgroundColor = initialColor;
     }
 });
+// page title appearing behind navbar end
 
+
+
+
+// nav burger start
 
 // Number of clicks on the trigger element initially set on 0
 let numOfClicks = 0;
@@ -54,6 +57,11 @@ const toggleMenu = () => {
     isNumOfClicksEven ? bodyEl.style.overflow = "auto" : bodyEl.style.overflow = "hidden";
 };
 
+// nav burger end
+
+
+// password input to text input eye button start
+
 $(document).ready(function () {
     $(".toggle-password").click(function () {
         var passwordInput = $(".password-input");
@@ -69,6 +77,10 @@ $(document).ready(function () {
 });
 
 
+// password input to text input eye button end
+
+
+// eye button #2 start
 $(document).ready(function () {
     $(".toggle-confirm-password").click(function () {
         var passwordInput = $(".confirm-password-input");
@@ -83,6 +95,11 @@ $(document).ready(function () {
     });
 });
 
+// eye button #2 start
+
+
+
+// song&album tab start
 
 const tabs = document.querySelectorAll(".my-tabs .tabs li");
 const sections = document.querySelectorAll(".my-tabs .tab-content");
@@ -111,48 +128,83 @@ const addActiveTab = tab => {
     matchingSection.classList.add("d-block");
 }
 
-
-// var audio = document.getElementById("myAudio");
-//
-// function playPause() {
-//     if (audio.paused) {
-//         audio.play();
-//     } else {
-//         audio.pause();
-//     }
-// }
-//
-// var audioPlayer = document.getElementById("play-pause-button");
-// function showAudioPlayer() {
-//     audioPlayer.style.display = "block";
-// }
-//
-// function hideAudioPlayer() {
-//     audioPlayer.style.display = "none";
-// }
+// song&album tab start
 
 
+
+
+// play button code start
 function playPause(songId) {
     const audio = document.getElementById(`audio-${songId}`);
     const button = document.getElementById(`play-pause-button-${songId}`);
+    const audioPlayer = document.getElementById(`audio-player-${songId}`);
+    let volumeSlider = document.querySelector(`#volume-control-${songId}`);
+    volumeSlider.addEventListener("change", function (e) {
+        audio.volume = e.currentTarget.value / 100;
+    })
+    //
+
+    let seekSlider = document.querySelector(`#seekslider-${songId}`);
+
+
+    let isDragging = false;
+
+
+    audio.addEventListener('timeupdate', function () {
+        seekSlider.value = (audio.currentTime / audio.duration) * 100;
+    });
 
     if (audio.paused) {
         audio.play();
         button.classList.remove('bi-play-fill');
         button.classList.add('bi-pause-fill');
+        audioPlayer.classList.add('playing')
+        seekSlider.style.display = "block"
+        volumeSlider.style.display = "block";
     } else {
         audio.pause();
         button.classList.remove('bi-pause-fill');
         button.classList.add('bi-play-fill');
+        audioPlayer.classList.remove('playing');
+        seekSlider.style.display = "none"
+        volumeSlider.style.display = "none";
+
     }
 }
-//
-// function showAudioPlayer(songId) {
-//     var audioPlayer = document.getElementById('audio-player-${songId}');
-//     audioPlayer.style.display = "block";
-// }
-//
-// function hideAudioPlayer(songId) {
-//     var audioPlayer = document.getElementById('audio-player-${songId}');
-//     audioPlayer.style.display = "none";
-// }
+
+
+var video = document.getElementById("myVideo");
+video.volume = 0.02
+// Get the button
+var btn = document.getElementById("myBtn");
+
+// Pause and play the video, and change the button text
+function myFunction() {
+  if (video.paused) {
+    video.play();
+    btn.classList.remove('bi-play-fill');
+    btn.classList.add('bi-pause-fill');
+  } else {
+    video.pause();
+    btn.classList.remove('bi-pause-fill');
+    btn.classList.add('bi-play-fill');
+  }
+}
+
+var btn1 = document.getElementById('myBtnUnmute')
+
+function unMute() {
+
+    if (video.muted){
+        video.muted = !video.muted
+        btn1.classList.remove('bi-volume-mute-fill')
+        btn1.classList.add('bi-volume-up-fill')
+
+    }
+    else {
+        video.muted = !video.muted
+        btn1.classList.remove('bi-volume-up-fill')
+        btn1.classList.add('bi-mute-fill')
+    }
+}
+

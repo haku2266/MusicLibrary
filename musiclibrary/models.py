@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.shortcuts import reverse
+
 User = get_user_model()
 
 
@@ -17,6 +18,7 @@ class ArtistModel(models.Model):
 
     def get_absolute_url(self):
         return reverse('artist_detail', kwargs={'id': self.id})
+
     class Meta:
         verbose_name = 'artist'
         verbose_name_plural = 'artists'
@@ -45,6 +47,7 @@ class AlbumModel(models.Model):
     class Meta:
         verbose_name = 'album'
         verbose_name_plural = 'albums'
+        ordering = ['-uploaded_at']
 
 
 class SongModel(models.Model):
@@ -67,6 +70,7 @@ class SongModel(models.Model):
                               related_name='songs_in_album')
     artists = models.ManyToManyField(ArtistModel, related_name='songs_by_artist')
     uploaded_at = models.DateTimeField(auto_now_add=True)
+    ordering = ['-uploaded_at']
 
     def __str__(self):
         return f'song:{self.title}'
@@ -97,6 +101,7 @@ class PlaylistModel(models.Model):
     class Meta:
         verbose_name = 'playlist'
         verbose_name_plural = 'playlists'
+        ordering = ['-uploaded_at']
 
 
 class LikedContentModel(models.Model):

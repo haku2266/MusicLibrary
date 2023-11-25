@@ -24,7 +24,7 @@
                     <p cla ss="h-auto overflow-hidden">{{post.text|capfirst|safe }}</p>
                     <div class="post-options mb-2 mt-auto d-flex justify-content-start">
                         <div class="d-flex">
-                            <a href="{% url 'user_posts_list' %}" class="btn btn-primary gap-1 d-flex go-back">
+                            <a href="{% url 'user_posts_list' id=post.artist.user.id %}" class="btn btn-primary gap-1 d-flex go-back">
                                 <span>Go Back</span><i class=" bi bi-arrow-right"></i></a>
                         </div>
 
@@ -33,11 +33,11 @@
                 </div>
             </div>
             <div class="col-12 col-lg-4 p-2 p-md-3 position-relative d-flex justify-content-center justify-content-sm-start align-items-center see-more-posts">
-                <div class="py-4 px-4 mx-1">
-                    <a href="{% url 'user_posts_list' %}"
-                       class="btn btn-primary px-3 gap-1 d-flex justify-content-center"><span>All Posts</span><i
-                            class="bi bi-arrow-right"></i></a>
-                </div>
+{#                <div class="py-4 px-4 mx-1">#}
+{#                    <a href="{% url 'user_posts_list' id= %}"#}
+{#                       class="btn btn-primary px-3 gap-1 d-flex justify-content-center"><span>All Posts</span><i#}
+{#                            class="bi bi-arrow-right"></i></a>#}
+{#                </div>#}
 
             </div>
         </div>

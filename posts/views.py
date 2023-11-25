@@ -60,13 +60,16 @@ def post_delete_view(request, id):
         })
 
 
-def user_post_list_view(request):
+def user_post_list_view(request, id):
     page_title = 'posts'
-    obj = CreatePostModel.objects.all().select_related('artist').select_related('artist__user')
-    return render(request, template_name='user_posts_list.html', context={
-        'page_title': page_title,
-        'posts': obj
-    })
+    try:
+        obj = CreatePostModel.objects.all().select_related('artist').select_related('artist__user').filter(artist__user_id=id)
+        return render(request, template_name='user_posts_list.html', context={
+            'page_title': page_title,
+            'posts': obj
+        })
+    except ObjectDoesNotExist:
+        return redirect('home')
 
 
 @login_required
