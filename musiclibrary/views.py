@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from posts.models import CreatePostModel
 from .forms import ArtistRegisterFrom
 from django.contrib.auth import get_user_model
-from .models import ArtistModel, AlbumModel, LikedContentModel, SongModel, PlaylistModel
+from .models import ArtistModel, AlbumModel, LikedContentModel, SongModel, PlaylistModel, FollowModel
 from siteuser.forms import LoginForm
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -126,6 +126,39 @@ def song_detail_view(request, id):
 
 
 @login_required
+def follow_artist_view(request, id):
+    try:
+        obj = ArtistModel.objects.get(id=id)
+    except ObjectDoesNotExist:
+        return render(request, template_name='universal_error.html', context={'error': 'Artist does not exist'})
+
+    else:
+        try:
+            if request.user.followings_of_user:
+                if request.user.followings_of_user.artists.all():
+                    for i in request.user.followings_of_user.artists.all():
+                        if obj == i:
+                            request.user.followings_of_user.artists.remove(obj)
+                            return redirect('artist_detail', id=id)
+
+                    request.user.followings_of_user.artists.add(obj)
+                    return redirect('artist_detail', id=id)
+
+                x = request.user.followings_of_user
+                x.artists.add(obj)
+                x.save()
+                return redirect('artist_detail', id=id)
+
+        except ObjectDoesNotExist:
+            x = FollowModel()
+            x.user = request.user
+            x.save()
+            x.artists.add(obj)
+            x.save()
+            return redirect('artist_detail', id=id)
+
+
+@login_required
 def like_song_view(request, id):
     try:
         obj = SongModel.objects.get(id=id)
@@ -160,26 +193,6 @@ def like_song_view(request, id):
 
 def add_album(request):
     ...
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # def add_playlist(request):
 

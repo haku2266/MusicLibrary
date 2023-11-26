@@ -13,9 +13,45 @@
 
             </div>
             <div class="artist-detail-info-wrapper col-12 col-md-10 ms-md-auto d-flex z-0 position-relative">
-                <div class="col-12 mt-5 mt-md-0 px-2 col-md-8 col-lg-10 ms-md-auto artist-detail-info mh-100 py-3">
+                <div class="col-12 mt-5 mt-md-0 px-2 col-md-8 col-lg-10 ms-md-auto artist-detail-info position-relative mh-100 py-3">
                     <h1 class="artist-nickname text-center my-2 mt-5">{{ artist.nickname|upper }}</h1>
                     <p class="">{{ artist.user.first_name }} {{ artist.user.last_name }}</p>
+
+
+
+
+
+
+
+
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'follow-artist' id=artist.id %}" class="artist-follow-btn
+                        {% with request.user.followings_of_user.artists.all as query %}
+                            {% if query %}
+                                {% if query|is_inside_query:artist %}
+                                    py-1 px-3 rounded-2 followed"
+                                    id="artist-follow-btn">
+                                    <span class="me-2" id="follow-text">
+                                    Followed
+                                    </span>
+                                    <i id="follow-icon" class="fw-bold bi bi-person-check"></i>
+                                {% else %}
+                                    py-1 px-3 rounded-2"
+                                    id="artist-follow-btn">
+                                    <span class="me-2" id="follow-text">
+                                    Follow
+                                    <i id="follow-icon" class="fw-bold bi bi-person-add"></i>
+                                {% endif %}
+                            {% else %}
+                                py-1 px-3 rounded-2"
+                                id="artist-follow-btn">
+                                <span class="me-2" id="follow-text">
+                                Follow
+                                <i id="follow-icon" class="fw-bold bi bi-person-add"></i>
+                            {% endif %}
+                        {% endwith %}
+                        </a>
+                    {% endif %}
 
                 </div>
 

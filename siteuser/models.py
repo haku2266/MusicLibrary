@@ -13,5 +13,7 @@ class CustomUserModel(AbstractUser):
                                        'You can register with this email only once')
     first_name = models.CharField(blank=False, null=False, max_length=150)
     last_name = models.CharField(blank=False, null=False, max_length=150)
-    profile_img = models.ImageField(upload_to=user_directory_path, blank=True, null=True,
+    profile_img = models.ImageField(upload_to=user_directory_path,
+                                    default='../static/main/img/blank-pofile-picture.png',
+                                    blank=True, null=True,
                                     help_text='This image will be used as your profile picture.')

@@ -150,16 +150,16 @@
                 </li>
             {% else %}
                 <li style="animation-delay: 0.4s">
-                    <a href="{% url 'artist_register' %}" class="navigation__link" data-text="artist register">Artist
-                        register</a>
+                    <a href="{% url 'user_profile' %}" class="navigation__link" data-text="my profile">
+                        My profile</a>
                 </li>
             {% endif %}
             <li style="animation-delay: 0.5s">
-                <a href="{% url 'logout' %}" class="navigation__link" data-text="logout">Logout</a>
+                <a href="{% url 'artist_register' %}" class="navigation__link" data-text="artist register">Artist Register</a>
             </li>
 
             <li style="animation-delay: {% if request.user.artist %}0.6s{% else %}0.6s{% endif %}">
-                <a href="#" class="navigation__link" data-text="Contact">Contact</a>
+                <a href="{% url 'logout' %}" class="navigation__link" data-text="logout">logout</a>
             </li>
             <li style="animation-delay: {% if request.user.artist %}0.7s{% else %}0.7s{% endif %}">
                 <a href="#" class="navigation__link" data-text="more">more</a>

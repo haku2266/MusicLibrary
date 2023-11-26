@@ -1,4 +1,3 @@
-
 // page title appearing behind navbar start
 
 let navbarText = document.querySelector('.page-title');
@@ -33,8 +32,6 @@ window.addEventListener('scroll', function () {
     }
 });
 // page title appearing behind navbar end
-
-
 
 
 // nav burger start
@@ -98,7 +95,6 @@ $(document).ready(function () {
 // eye button #2 start
 
 
-
 // song&album tab start
 
 const tabs = document.querySelectorAll(".my-tabs .tabs li");
@@ -131,8 +127,6 @@ const addActiveTab = tab => {
 // song&album tab start
 
 
-
-
 // play button code start
 function playPause(songId) {
     const audio = document.getElementById(`audio-${songId}`);
@@ -158,15 +152,15 @@ function playPause(songId) {
         audio.play();
         button.classList.remove('bi-play-fill');
         button.classList.add('bi-pause-fill');
-        audioPlayer.classList.add('playing')
-        seekSlider.style.display = "block"
+        audioPlayer.classList.add('playing');
+        seekSlider.style.display = "block";
         volumeSlider.style.display = "block";
     } else {
         audio.pause();
         button.classList.remove('bi-pause-fill');
         button.classList.add('bi-play-fill');
         audioPlayer.classList.remove('playing');
-        seekSlider.style.display = "none"
+        seekSlider.style.display = "none";
         volumeSlider.style.display = "none";
 
     }
@@ -180,31 +174,48 @@ var btn = document.getElementById("myBtn");
 
 // Pause and play the video, and change the button text
 function myFunction() {
-  if (video.paused) {
-    video.play();
-    btn.classList.remove('bi-play-fill');
-    btn.classList.add('bi-pause-fill');
-  } else {
-    video.pause();
-    btn.classList.remove('bi-pause-fill');
-    btn.classList.add('bi-play-fill');
-  }
+    if (video.paused) {
+        video.play();
+        btn.classList.remove('bi-play-fill');
+        btn.classList.add('bi-pause-fill');
+    } else {
+        video.pause();
+        btn.classList.remove('bi-pause-fill');
+        btn.classList.add('bi-play-fill');
+    }
 }
 
 var btn1 = document.getElementById('myBtnUnmute')
 
 function unMute() {
 
-    if (video.muted){
+    if (video.muted) {
         video.muted = !video.muted
         btn1.classList.remove('bi-volume-mute-fill')
         btn1.classList.add('bi-volume-up-fill')
 
-    }
-    else {
+    } else {
         video.muted = !video.muted
         btn1.classList.remove('bi-volume-up-fill')
-        btn1.classList.add('bi-mute-fill')
+        btn1.classList.add('bi-volume-mute-fill')
     }
 }
+
+
+function openModal() {
+    var modal_open_btn = document.getElementById('modal_open_btn')
+    var my_modal = document.getElementById('myModal')
+    let bodyE1 = document.getElementsByTagName("body")[0];
+    my_modal.style.display = 'flex';
+    bodyE1.style.overflow = 'hidden';
+}
+function closeModel() {
+    let bodyE1 = document.getElementsByTagName("body")[0];
+    bodyE1.style.overflow = 'auto';
+    var modal_open_btn = document.getElementById('modal_open_btn')
+    var my_modal = document.getElementById('myModal')
+    my_modal.style.display = 'none';
+}
+
+
 

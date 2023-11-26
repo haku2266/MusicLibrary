@@ -1,9 +1,68 @@
 {% extends 'layouts/base.html' %}
 
 {% block page_title %}
-	My Profile
+    My Profile
 {% endblock %}
 
 {% block content %}
-	UserProfile
+
+    <div class="follow-modal align-items-center justify-content-center" id="myModal">
+        <div class="row w-100 d-flex">
+            <div class="col-10 col-sm-6 col-lg-5 col-xl-4 px-3 py-4 rounded-2 mx-auto text-white">
+                <div class="d-flex align-items-center mb-3">
+                    <h3 class="text-center">Followings</h3>
+                    <button type="button" onclick="closeModel()" class="bi bi-x-lg text-white ms-auto" style=""></button>
+                </div>
+                {% for artist in request.user.followings_of_user.artists.all %}
+                    <div class="follow-item py-2 d-flex align-items-center column-gap-2">
+                        <a href="{{ artist.get_absolute_url }}">
+                            <img src="{{ artist.user.profile_img.url }}" alt="">
+                        </a>
+                        <a href="{{ artist.get_absolute_url }}">{{ artist.nickname|truncatechars:'17' }}</a>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+
+
+    </div>
+    <div class="container user-detail d-flex flex-column">
+        <div class="row d-flex flex-column position-relative">
+            <div class="profile-img-wrapper px-0 align-items-md-center d-flex col-12 col-md-4 position-absolute z-1">
+                <img src="{{ user.profile_img.url }}" class="artist-profile-img mx-auto" alt="
+                                                        profile picture ">
+
+            </div>
+            <div class="user-detail-info-wrapper col-12 col-md-10 ms-md-auto d-flex "
+                 style="min-height: 250px">
+                <div class="col-12 mt-4 mt-md-0 px-2 col-md-9 col-lg-10 ms-md-auto py-3">
+                    <div class="user-credentials text-white">
+                        <h4 class="text-center text-md-start my-2 mt-md-5">{{ request.user.first_name|upper }}
+                            {{ request.user.last_name|upper }}</h4>
+                    </div>
+                    <div class="user-related-links justify-content-center justify-content-md-start d-flex gap-4 mt-4">
+                        <button type="button" class="px-3 py-2 d-flex align-items-center rounded-3" id="modal_open_btn" onclick="openModal()">
+                            <span class="d-none d-lg-block me-1">Followings</span><i class="bi bi-person-check"></i>
+                        </button>
+
+
+                        <a href="" class="px-3 py-2 d-flex align-items-center text-center rounded-3">
+                            <span class="d-none d-lg-block me-1">Liked</span><i class="bi bi-heart"></i>
+                        </a>
+                        <a href="" class="px-3 py-2 d-flex align-items-center text-center rounded-3">
+                            <span class="d-none d-lg-block me-1"> Playlists</span><i class="bi bi-music-note-list"></i>
+                        </a>
+                        <a href="" class="px-3 py-2 d-flex align-items-center text-center rounded-3">
+                            <span class="d-none d-lg-block me-1">Settings</span><i class="bi bi-gear"></i>
+                        </a>
+                    </div>
+                    <p class=""></p>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
