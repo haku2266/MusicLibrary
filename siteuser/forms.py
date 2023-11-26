@@ -13,7 +13,7 @@ class RegistrationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'email',  'profile_img', 'password']
+        fields = ['first_name', 'last_name', 'username', 'email', 'profile_img', 'password']
         widgets = {
             'password': forms.PasswordInput(attrs={'class': 'form-control password-input',
                                                    'placeholder': 'password'}),
@@ -38,3 +38,4 @@ class LoginForm(forms.Form):
     password = forms.CharField(max_length=50, required=True, label='Password', widget=forms.PasswordInput(attrs={
         'placeholder': 'password'
     }))
+

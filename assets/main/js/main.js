@@ -217,5 +217,16 @@ function closeModel() {
     my_modal.style.display = 'none';
 }
 
-
+function openModalEdit() {
+    var my_modal2 = document.getElementById('myModal2')
+    let bodyE1 = document.getElementsByTagName("body")[0];
+    my_modal2.style.display = 'flex';
+    bodyE1.style.overflow = 'hidden';
+}
+function closeModelEdit() {
+    let bodyE1 = document.getElementsByTagName("body")[0];
+    var my_modal2 = document.getElementById('myModal2')
+    my_modal2.style.display = 'none';
+    bodyE1.style.overflow = 'auto';
+}
 

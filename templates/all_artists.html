@@ -7,8 +7,14 @@
 
 {% block content %}
     <div class="container artists_list">
+        <div class="text-white my-breadcrumb position-relative z-2 pt-5 mb-4">
+            <a href="{% url 'home' %}">home</a>
+            <span>/</span>
+            <span class="active">all artists</span>
+
+        </div>
         <h1 class="text-white text-center">All Artists</h1>
-        <div class="row d-flex mb-3 all_artists " style="">
+        <div class="row d-flex mb-3 row-gap-3 all_artists " style="">
             {% for artist in artists %}
                 <div class="col-12 col-sm-6 px-0 col-md-4 mx-md-0 col-lg-3 col-xl-2 mx-lg-0 mx-xl-4 mx-xxl-2 d-flex flex-column align-items-center">
                     <a href="{{ artist.get_absolute_url }}" class="artist-card p-3 px-4 pb-4 rounded-3">

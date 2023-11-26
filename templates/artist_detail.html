@@ -5,7 +5,69 @@
     Artist Detail
 {% endblock %}
 {% block content %}
+    {% if artist == request.user.artist %}
+        <div class="follow-modal align-items-center justify-content-center" id="myModal">
+            <div class="row w-100 d-flex">
+                <div class="col-10 col-sm-6 col-lg-5 col-xl-4 px-3 py-4 rounded-2 mx-auto text-white">
+                    <div class="d-flex align-items-center mb-3">
+                        <h3 class="text-center">Followings</h3>
+                        <button type="button" onclick="closeModel()" class="bi bi-x-lg text-white ms-auto"
+                                style=""></button>
+                    </div>
+                    {% for artist in request.user.followings_of_user.artists.all %}
+                        <div class="follow-item py-2 d-flex align-items-center column-gap-2">
+                            <a href="{{ artist.get_absolute_url }}">
+                                <img src="{{ artist.user.profile_img.url }}" alt="">
+                            </a>
+                            <a href="{{ artist.get_absolute_url }}">{{ artist.nickname|truncatechars:'17' }}</a>
+
+                            <a href="{% url 'follow-artist' id=artist.id %}"
+                               class="ms-auto artist-follow-btn py-0 px-2 rounded-2 followed"
+                               id="artist-follow-btn">
+
+                                <i id="follow-icon" class="fw-bold bi fs-4 bi-person-check"></i>
+                            </a>
+
+
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="edit-profile-modal align-items-center justify-content-center" id="myModal2">
+            <div class="row d-flex w-100 ">
+                <div class="col-10 col-sm-6 col-lg-5 col-xl-4 px-3 py-4 rounded-2 mx-auto bg-primary text-white">
+                    <div class="d-flex align-items-center mb-3">
+                        <h3 class="text-center">Create</h3>
+                        <button type="button" onclick="closeModelEdit()" class="bi bi-x-lg text-white ms-auto"
+                                style=""></button>
+                    </div>
+                    <button>Add album</button>
+                    <button>Add song</button>
+                    <button>Add Post</button>
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+
+
+
+
     <div class="container artist-detail d-flex flex-column">
+
+        <div class="text-white my-breadcrumb position-relative z-2 pt-5 mb-4">
+            <a href="{% url 'home' %}">home</a>
+            <span>/</span>
+            <a href="{% url 'all_artists' %}">all artists</a>
+            <span>/</span>
+            <span class="active">{{ artist.nickname }}</span>
+        </div>
+
         <div class="row d-flex flex-column position-relative">
             <div class="profile-img-wrapper align-items-md-center d-flex col-12 col-md-4 h-100 position-absolute z-1">
                 <img src="{{ artist.user.profile_img.url }}" class="artist-profile-img mx-auto my-auto" alt="
@@ -16,32 +78,42 @@
                 <div class="col-12 mt-5 mt-md-0 px-2 col-md-8 col-lg-10 ms-md-auto artist-detail-info position-relative mh-100 py-3">
                     <h1 class="artist-nickname text-center my-2 mt-5">{{ artist.nickname|upper }}</h1>
                     <p class="">{{ artist.user.first_name }} {{ artist.user.last_name }}</p>
+                    <p>Status</p>
 
 
+                    {% if artist == request.user.artist %}
+                        <div class="user-related-links justify-content-center justify-content-md-start d-flex gap-4 mt-4">
+                            <button type="button" class="px-3 py-2 d-flex align-items-center rounded-3"
+                                    id="modal_open_btn"
+                                    onclick="openModal()">
+                                <span class="d-none d-lg-block me-1">Followings</span><i class="bi bi-person-check"></i>
+                            </button>
 
+                            <a href="" class="px-3 py-2 d-flex align-items-center text-center rounded-3">
+                                <span class="d-none d-lg-block me-1"> Playlists</span><i
+                                    class="bi bi-music-note-list"></i>
+                            </a>
 
+                            <button onclick="openModalEdit()" id="modalEditBtn"
+                                    class="settings-btn px-3 py-2 d-flex align-items-center text-center rounded-3">
+                                <span class="d-none d-lg-block me-1">Create</span><i class="bi bi-plus-circle"></i>
+                            </button>
 
+                        </div>
+                    {% endif %}
 
-
-
-                    {% if request.user.is_authenticated %}
-                        <a href="{% url 'follow-artist' id=artist.id %}" class="artist-follow-btn
+                    {% if request.user != artist.user %}
+                        {% if request.user.is_authenticated %}
+                            <a href="{% url 'follow-artist' id=artist.id %}" class="artist-follow-btn
                         {% with request.user.followings_of_user.artists.all as query %}
                             {% if query %}
                                 {% if query|is_inside_query:artist %}
                                     py-1 px-3 rounded-2 followed"
-                                    id="artist-follow-btn">
-                                    <span class="me-2" id="follow-text">
+                               id="artist-follow-btn">
+                                <span class="me-2" id="follow-text">
                                     Followed
                                     </span>
-                                    <i id="follow-icon" class="fw-bold bi bi-person-check"></i>
-                                {% else %}
-                                    py-1 px-3 rounded-2"
-                                    id="artist-follow-btn">
-                                    <span class="me-2" id="follow-text">
-                                    Follow
-                                    <i id="follow-icon" class="fw-bold bi bi-person-add"></i>
-                                {% endif %}
+                                <i id="follow-icon" class="fw-bold bi bi-person-check"></i>
                             {% else %}
                                 py-1 px-3 rounded-2"
                                 id="artist-follow-btn">
@@ -49,9 +121,18 @@
                                 Follow
                                 <i id="follow-icon" class="fw-bold bi bi-person-add"></i>
                             {% endif %}
-                        {% endwith %}
-                        </a>
+                            {% else %}
+                                py-1 px-3 rounded-2"
+                                id="artist-follow-btn">
+                                <span class="me-2" id="follow-text">
+                                Follow
+                                <i id="follow-icon" class="fw-bold bi bi-person-add"></i>
+                            {% endif %}
+                            {% endwith %}
+                            </a>
+                        {% endif %}
                     {% endif %}
+
 
                 </div>
 

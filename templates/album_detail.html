@@ -7,14 +7,52 @@
 
 {% block content %}
     <div class="container album-detail d-flex flex-column">
-        <div class="row album-detail-header p-3 mt-5">
-            <div class="col-lg-4 col-xxl-3 d-flex align-items-center justify-content-center"><img
-                    src="{{ album.cover.url }}" alt="{{ album.title }}-album cover"></div>
+
+
+        <div class="text-white my-breadcrumb position-relative z-2 pt-5 mb-4">
+            <a href="{% url 'all_artists' %}">all artists</a>
+            <span>/</span>
+            <a href="{{ album.artist.get_absolute_url }}">{{ album.artist.nickname }}</a>
+            <span>/</span>
+            <a href="{% url 'all_albums' id=album.artist.user.id %}" class="">all albums</a>
+            <span>/</span>
+            <span class="active">{{ album.title }}</span>
+        </div>
+
+
+        <div class="row album-detail-header p-3 mt-5 ">
+            <div class="col-lg-4 col-xxl-3 d-flex align-items-center justify-content-center">
+
+
+                <img src="{{ album.cover.url }}" alt="{{ album.title }}-album cover">
+            </div>
             <div class="col-lg-8 mt-4 mt-lg-0 col-xxl-9 d-flex flex-column justify-content-center align-items-center align-items-lg-start">
                 <span class="fs-5 ms-1 fw-light">Album</span>
                 <h1 class="text-white">{{ album.title }}</h1>
-                <span class="fs-5 ms-1 fw-light"> <a class="fw-medium text-white"
-                                                     href="{{ album.artist.get_absolute_url }}">{{ album.artist }}</a>    | {{ album.uploaded_at|date:'Y' }}</span>
+                <span class="fs-5 ms-1 fw-light">
+                    <a class="fw-medium text-white"
+                       href="{{ album.artist.get_absolute_url }}">{{ album.artist }}</a> | {{ album.uploaded_at|date:'Y' }}</span>
+
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'like_album' id=album.id %}" class="like_album ms-2 mt-2">
+                        <i class="bi fs-1
+                            {% with request.user.liked_content.albums.all as query %}
+                                  {% if query %}
+                                        {% if query|is_inside_query:album %}
+                                                    bi-heart-fill
+                                        {% else %}
+                                                    bi-heart
+                                        {% endif %}
+                                   {% else %}
+                                            bi-heart
+                                  {% endif %}
+
+                          {% endwith %}
+                            "></i>
+                    </a>
+                {% endif %}
+
+
             </div>
         </div>
         <div class="row album-tracks mt-4">
@@ -76,6 +114,8 @@
 
 
                 </div>
+            {% empty %}
+                <h1 class="text-white">No Songs Uploaded</h1>
             {% endfor %}
 
             <div class="col-12"></div>
