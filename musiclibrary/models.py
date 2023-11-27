@@ -43,7 +43,7 @@ class AlbumModel(models.Model):
         return reverse('album_detail', kwargs={'id': self.id})
 
     def __str__(self):
-        return f'album:{self.title}'
+        return f'{self.title}'
 
     class Meta:
         verbose_name = 'album'
@@ -65,14 +65,13 @@ class SongModel(models.Model):
 
     title = models.CharField(max_length=200, blank=False, null=False)
     lyrics = models.TextField(blank=True, null=True)
-    cover = models.ImageField(null=True, max_length=500, blank=True, upload_to=path_song_cover)
+    cover = models.ImageField(null=False, max_length=500, blank=False, upload_to=path_song_cover)
     video_url = models.URLField(null=True, blank=True)
     file = models.FileField(upload_to=path_song_file, max_length=5000, blank=False, null=False)
     album = models.ForeignKey(AlbumModel, blank=True, null=True, on_delete=models.SET_NULL,
                               related_name='songs_in_album')
     artists = models.ManyToManyField(ArtistModel, related_name='songs_by_artist')
     uploaded_at = models.DateTimeField(auto_now_add=True)
-    ordering = ['-uploaded_at']
 
     def __str__(self):
         return f'song:{self.title}'
@@ -83,6 +82,7 @@ class SongModel(models.Model):
     class Meta:
         verbose_name = 'song'
         verbose_name_plural = 'songs'
+        ordering = ['-uploaded_at']
         db_table = 'songs'
 
 
