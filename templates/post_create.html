@@ -6,6 +6,16 @@
 
 {% block content %}
     <div class="container ">
+
+
+        <div class="text-white my-breadcrumb position-relative z-2 pt-5 mb-4">
+            <a href="{% url 'home' %}">home</a>
+            <span>/</span>
+            <a href="{% url 'artist_detail' id=request.user.artist.id %}">artist</a>
+            <span>/</span>
+            <span class="active">create post</span>
+        </div>
+
         <div class="row d-flex justify-content-center">
             <div class="form-card col-12 col-md-6 py-3 px-4 rounded-4 my-4 ">
                 <form action="{% url 'create_post' %}" method="post" class="d-flex flex-column">

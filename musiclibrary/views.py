@@ -87,7 +87,7 @@ def all_artists_view(request):
 
 def all_albums_view(request, id):
     page_title = 'all albums'
-    obj = AlbumModel.objects.select_related('artist'). \
+    obj = AlbumModel.objects.select_related('artist').prefetch_related('songs_in_album').\
         filter(artist__user_id=id)
 
     return render(request, template_name='all_albums.html', context={
@@ -248,14 +248,6 @@ def add_song_view(request):
             if request.method == 'POST':
                 form = AddSongForm(request.POST, request.FILES)
                 if form.is_valid():
-                    #
-                    # song = SongModel(title=form.cleaned_data['title'],
-                    #                  lyrics=form.cleaned_data['lyrics'],
-                    #                  cover=form.cleaned_data['cover'],
-                    #                  video_url=form.cleaned_data['video_url'],
-                    #                  file=form.cleaned_data['file'],
-                    #                  album=form.cleaned_data['album'],
-                    #                  artists=form.cleaned_data['artists'])
                     form.save()
                     return redirect('artist_detail', id=request.user.artist.id)
             return render(request, template_name='add_song.html', context={

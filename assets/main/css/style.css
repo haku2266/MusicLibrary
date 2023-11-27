@@ -1160,6 +1160,7 @@ main {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .follow-item {
@@ -1427,8 +1428,9 @@ main {
         grid-template-columns: auto !important;
     }
 
-    .my-tabs .content section .row div {
+    .my-tabs .content section .row>div {
         width: auto !important;
     }
+
 }
 
