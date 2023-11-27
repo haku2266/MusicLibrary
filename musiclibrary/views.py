@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from siteuser.models import CustomUserModel
 from posts.models import CreatePostModel
-from .forms import ArtistRegisterFrom
+from .forms import ArtistRegisterFrom, AddAlbumForm, AddSongForm
 from django.contrib.auth import get_user_model
 from .models import ArtistModel, AlbumModel, LikedContentModel, SongModel, FollowModel
 from django.core.exceptions import ObjectDoesNotExist
@@ -215,5 +215,54 @@ def like_album_view(request, id):
             return redirect('album_detail', id=id)
 
 
-def add_album(request):
-    ...
+@login_required
+def add_album_view(request):
+    try:
+        if request.user.artist:
+            page_title = 'Add Album'
+            form = AddAlbumForm()
+            if request.method == 'POST':
+                form = AddAlbumForm(request.POST, request.FILES)
+                if form.is_valid():
+                    album = AlbumModel(title=form.cleaned_data['title'],
+                                       cover=form.cleaned_data['cover'],
+                                       artist=request.user.artist)
+                    album.save()
+                    return redirect('artist_detail', id=request.user.artist.id)
+            return render(request, template_name='add_album.html', context={
+                'form': form,
+                'page_title': page_title
+            })
+    except ObjectDoesNotExist:
+        return render(request, template_name='universal_error.html', context={
+            'error': 'You need to be artist to load this page'
+        })
+
+
+@login_required
+def add_song_view(request):
+    try:
+        if request.user.artist:
+            page_title = 'Add Song'
+            form = AddSongForm()
+            if request.method == 'POST':
+                form = AddSongForm(request.POST, request.FILES)
+                if form.is_valid():
+                    #
+                    # song = SongModel(title=form.cleaned_data['title'],
+                    #                  lyrics=form.cleaned_data['lyrics'],
+                    #                  cover=form.cleaned_data['cover'],
+                    #                  video_url=form.cleaned_data['video_url'],
+                    #                  file=form.cleaned_data['file'],
+                    #                  album=form.cleaned_data['album'],
+                    #                  artists=form.cleaned_data['artists'])
+                    form.save()
+                    return redirect('artist_detail', id=request.user.artist.id)
+            return render(request, template_name='add_song.html', context={
+                'form': form,
+                'page_title': page_title
+            })
+    except ObjectDoesNotExist:
+        return render(request, template_name='universal_error.html', context={
+            'error': 'You need to be artist to load this page'
+        })
