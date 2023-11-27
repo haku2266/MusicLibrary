@@ -68,14 +68,11 @@ def artist_detail_view(request, id):
     page_title = 'artist'
     obj = ArtistModel.objects.prefetch_related('songs_by_artist').prefetch_related('albums_by_artist') \
         .prefetch_related('posts').select_related('user__liked_content').prefetch_related(
-        'songs_by_artist__liked_songs') \
-        .get(id=id)
-    user = CustomUserModel.objects.select_related('artist').prefetch_related('followings_of_user__artists__user').get(
-        id=request.user.id)
+        'songs_by_artist__liked_songs').get(id=id)
+
     return render(request, template_name='artist_detail.html', context={
         'artist': obj,
         'page_title': page_title,
-        'my_user': user
     })
 
 

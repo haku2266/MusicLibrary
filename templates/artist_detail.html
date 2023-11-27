@@ -5,7 +5,7 @@
     Artist Detail
 {% endblock %}
 {% block content %}
-    {% if artist == my_user.artist %}
+    {% if artist == request.user.artist %}
         <div class="follow-modal align-items-center justify-content-center" id="myModal">
             <div class="row w-100 d-flex">
                 <div class="col-10 col-sm-6 col-lg-5 col-xl-4 px-3 py-4 rounded-2 mx-auto text-white">
@@ -14,7 +14,7 @@
                         <button type="button" onclick="closeModel()" class="bi bi-x-lg text-white ms-auto"
                                 style=""></button>
                     </div>
-                    {% for artist in my_user.followings_of_user.artists.all %}
+                    {% for artist in request.user.followings_of_user.artists.all %}
                         <div class="follow-item py-2 d-flex align-items-center column-gap-2">
                             <a href="{{ artist.get_absolute_url }}">
                                 <img src="{{ artist.user.profile_img.url }}" alt="">
@@ -81,7 +81,7 @@
                     <p>{{ artist.description }}</p>
 
 
-                    {% if artist == my_user.artist %}
+                    {% if artist == request.user.artist %}
                         <div class="user-related-links justify-content-center justify-content-md-start d-flex gap-4 mt-4">
                             <button type="button" class="px-3 py-2 d-flex align-items-center rounded-3"
                                     id="modal_open_btn"
@@ -102,10 +102,10 @@
                         </div>
                     {% endif %}
 
-                    {% if my_user != artist.user %}
-                        {% if my_user.is_authenticated %}
+                    {% if request.user != artist.user %}
+                        {% if request.user.is_authenticated %}
                             <a href="{% url 'follow-artist' id=artist.id %}" class="artist-follow-btn
-                        {% with my_user.followings_of_user.artists.all as query %}
+                        {% with request.user.followings_of_user.artists.all as query %}
                             {% if query %}
                                 {% if query|is_inside_query:artist %}
                                     py-1 px-3 rounded-2 followed"
