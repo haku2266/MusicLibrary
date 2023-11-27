@@ -232,7 +232,7 @@
                                                 <div class="song-card p-3 px-4 pb-4 rounded-3">
                                                     <img src="{{ album.cover.url }}"
                                                          class="mb-4 rounded-3" alt="album cover">
-                                                    <h5>{{ album.title|truncatechars:'15' }}</h5>
+                                                    <h5>{{ album.title|truncatechars:'13' }}</h5>
                                                     <span>{{ album.uploaded_at|date:'Y' }} - Album</span>
                                                     <br>
                                                     {% with album.liked_albums.all as liked_a %}

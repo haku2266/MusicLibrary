@@ -35,7 +35,7 @@
                         " style="left: -5px">
                         </i>
                         <img class="artist-profile-img" src="{{ artist.user.profile_img.url }}" alt="">
-                        <h3 class="mt-3">{{ artist.nickname }}</h3>
+                        <h3 class="mt-3">{{ artist.nickname|truncatechars:'13' }}</h3>
                         <span>Artist</span>
                     </a>
                 </div>
@@ -65,7 +65,7 @@
                             " style="left: -5px"></i>
                             <img src="{{ album.cover.url }}"
                                  class="mb-4 rounded-3" alt="album cover">
-                            <h5>{{ album.title|truncatechars:'15' }}</h5>
+                            <h5>{{ album.title|truncatechars:'13' }}</h5>
                             <span>{{ album.uploaded_at|date:'Y' }} - Album</span>
                             <br>
                             <span class="mt-1">{{ album.liked_albums.all|length_query }} pe{{ album.liked_albums.all|length_query|pluralize:"rson,ople" }} liked</span>
