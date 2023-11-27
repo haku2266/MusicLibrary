@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from posts.models import CreatePostModel
 from .forms import ArtistRegisterFrom
 from django.contrib.auth import get_user_model
-from .models import ArtistModel, AlbumModel, LikedContentModel, SongModel, PlaylistModel, FollowModel
+from .models import ArtistModel, AlbumModel, LikedContentModel, SongModel, FollowModel
 from django.core.exceptions import ObjectDoesNotExist
 
 User = get_user_model()
@@ -209,26 +209,3 @@ def like_album_view(request, id):
 def add_album(request):
     ...
 
-# def add_playlist(request):
-
-
-# ------------------------------------------------------------------------------
-
-# RIGHT AFTER PLAYLIST
-
-
-# def add_song_view(request, id):
-#     play = PlaylistModel.objects.get(title='before-you-leave')
-#     try:
-#         obj = SongModel.objects.get(id=id)
-#     except ObjectDoesNotExist:
-#         return redirect('album_detail')
-#     else:
-#         if request.user.playlists_of_user.all():
-#             for i in request.user.playlists_of_user.all():
-#                 if i == play:
-#                     for song in i.songs.all():
-#                         if obj == song:
-#                             play.songs.remove(obj)
-#                             return redirect('album_detail', id=obj.album.id)
-#                     play.songs.add(obj)
