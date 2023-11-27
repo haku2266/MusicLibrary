@@ -22,6 +22,7 @@ class ArtistModel(models.Model):
     class Meta:
         verbose_name = 'artist'
         verbose_name_plural = 'artists'
+        db_table = 'artists'
 
 
 class AlbumModel(models.Model):
@@ -48,6 +49,7 @@ class AlbumModel(models.Model):
         verbose_name = 'album'
         verbose_name_plural = 'albums'
         ordering = ['-uploaded_at']
+        db_table = 'albums'
 
 
 class SongModel(models.Model):
@@ -81,27 +83,7 @@ class SongModel(models.Model):
     class Meta:
         verbose_name = 'song'
         verbose_name_plural = 'songs'
-
-
-class PlaylistModel(models.Model):
-    title = models.CharField(max_length=100, blank=False, null=False)
-    description = models.CharField(max_length=200, null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    uploaded_at = models.DateTimeField(auto_now=True)
-    songs = models.ManyToManyField(SongModel, related_name='playlists_of_song')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False,
-                             related_name='playlists_of_user')
-
-    def __str__(self):
-        return f'playlist:{self.title}'
-
-    def get_absolute_url(self):
-        return reverse('playlist_detail', kwargs={'id': self.id})
-
-    class Meta:
-        verbose_name = 'playlist'
-        verbose_name_plural = 'playlists'
-        ordering = ['-uploaded_at']
+        db_table = 'songs'
 
 
 class LikedContentModel(models.Model):
@@ -109,8 +91,6 @@ class LikedContentModel(models.Model):
                                    )
     albums = models.ManyToManyField(AlbumModel, related_name='liked_albums', blank=True,
                                     )
-    playlists = models.ManyToManyField(PlaylistModel, related_name='liked_playlists',
-                                       blank=True, )
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=False, null=False,
                                 related_name='liked_content')
 
@@ -123,6 +103,7 @@ class LikedContentModel(models.Model):
     class Meta:
         verbose_name = 'liked content'
         verbose_name_plural = 'liked contents'
+        db_table = 'liked_content'
 
 
 class FollowModel(models.Model):
@@ -139,3 +120,4 @@ class FollowModel(models.Model):
     class Meta:
         verbose_name = 'following'
         verbose_name_plural = 'followings'
+        db_table = 'followings'

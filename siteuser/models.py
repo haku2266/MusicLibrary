@@ -5,7 +5,6 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 class CustomUserModel(AbstractUser):
     def user_directory_path(instance, filename):
-        # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
         return 'users/{0}/profile/{1}'.format(instance.username, filename)
 
     email = models.CharField(blank=False, null=False, unique=True, max_length=100,
@@ -16,3 +15,8 @@ class CustomUserModel(AbstractUser):
     profile_img = models.ImageField(upload_to=user_directory_path,
                                     blank=True, null=True,
                                     help_text='This image will be used as your profile picture.')
+
+    class Meta:
+        verbose_name = 'user'
+        verbose_name_plural = 'users'
+        db_table = 'users'

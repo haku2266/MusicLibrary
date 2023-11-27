@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .forms import CreatePostForm
-from django.contrib.auth import get_user_model
-from .models import ArtistModel, CreatePostModel
+from .models import CreatePostModel
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -63,7 +63,8 @@ def post_delete_view(request, id):
 def user_post_list_view(request, id):
     page_title = 'posts'
     try:
-        obj = CreatePostModel.objects.all().select_related('artist').select_related('artist__user').filter(artist__user_id=id)
+        obj = CreatePostModel.objects.all().select_related('artist').select_related('artist__user').filter(
+            artist__user_id=id)
         return render(request, template_name='user_posts_list.html', context={
             'page_title': page_title,
             'posts': obj
@@ -95,7 +96,7 @@ def edit_post_view(request, id):
 
 def post_detail_view(request, id):
     try:
-        obj = CreatePostModel.objects.get(id=id)
+        obj = CreatePostModel.objects.select_related('artist').select_related('artist__user').get(id=id)
     except ObjectDoesNotExist:
         return redirect('home')
     else:
