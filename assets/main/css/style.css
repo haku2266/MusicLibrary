@@ -18,6 +18,10 @@
     ---light-black-hover: #1e1e1e;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background: #000;
     display: flex !important;
@@ -1087,19 +1091,20 @@ main {
     width: 70px;
     height: 70px;
     font-size: 30px;
-    background-color: rgba(0, 0, 0, 0.53);
+    background-color: rgba(0, 0, 0, 0.33);
     color: #fff;
     border: none;
-    backdrop-filter: blur(10px);
+    /*backdrop-filter: blur(10px);*/
 }
-#myBtnUnmute{
-    top: 8% !important;
+
+#myBtnUnmute {
+    left: 7%;
 }
 
 .video-layer {
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(#000, transparent, rgb(0, 0, 0));
+    background-image: linear-gradient(#000, transparent, #000);
 }
 
 
@@ -1110,6 +1115,180 @@ main {
     margin-bottom: 50px;
 }
 
+.user-credentials h4 {
+    font-family: var(--heading-font);
+    font-weight: 600;
+}
+
+.user-detail .user-detail-info-wrapper {
+    background-image: linear-gradient(var(--light-blue-black), transparent);
+}
+
+.user-related-links > * {
+    background-color: var(---light-black-hover);
+    color: var(--gray-font-color);
+    transition: 250ms ease;
+    border: none;
+}
+
+.user-related-links > a:hover,
+.user-related-links > button:hover {
+    background-color: var(---light-black-hover);
+    color: #fff;
+}
+
+.settings-btn {
+    position: relative;
+}
+
+
+/*followings model*/
+.follow-modal {
+    display: none;
+    transition: 250ms ease-out;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    height: 100vh !important;
+    z-index: 6 !important;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.follow-modal img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.follow-item {
+    border-top: 0.5px solid rgba(156, 161, 165, 0.62);
+}
+
+.follow-modal > .row > div {
+    max-height: 500px;
+    overflow-y: scroll;
+    background-color: var(--light-black);
+}
+
+.follow-modal h3 {
+    font-family: var(--heading-font);
+    font-weight: 600;
+}
+
+.follow-modal button {
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+}
+
+
+.artist-follow-btn {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--green);
+    color: #fff;
+    border: 2px solid var(--green);
+    transition: 250ms ease;
+}
+
+.follow-item .artist-follow-btn {
+    position: static;
+}
+
+.artist-follow-btn:hover {
+    background-color: transparent;
+}
+
+.artist-follow-btn.followed {
+    background-color: transparent;
+    transition: 250ms ease;
+}
+
+.artist-follow-btn.followed:hover {
+    background-color: var(--green);
+}
+
+.like_album i {
+    color: var(--red);
+    font-size: 30px !important;
+}
+
+.edit-profile-modal {
+    display: none;
+    transition: 250ms ease-out;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    height: 100vh !important;
+    z-index: 6 !important;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.edit-profile-modal > .row > div {
+    max-height: 700px;
+    overflow-y: scroll;
+    background-color: var(--light-black);
+}
+
+
+.edit-profile-modal h3 {
+    font-family: var(--heading-font);
+    font-weight: 600;
+}
+
+.edit-profile-modal button {
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+}
+
+.my-breadcrumb .active {
+    color: var(--green);
+    cursor: not-allowed;
+}
+
+
+.song-detail .audio-player{
+    display: flex;
+    justify-content: center;
+    width: 100% !important;
+    position: static !important;
+}
+
+.song-detail .audio-player.playing {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(43, 47, 50, 0.15);
+    backdrop-filter: blur(5px);
+    padding: 15px;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+/*end of followings model*/
+@media (max-height: 700px) {
+    a.navigation__link {
+        font-size: 50px;
+    }
+}
 
 /*media queries*/
 @media (max-height: 450px) {
@@ -1121,7 +1300,7 @@ main {
 
     .menu ul a {
         display: flex;
-        justify-content: start;
+        justify-content: center;
         align-items: center;
         font-size: 40px;
         white-space: nowrap;
@@ -1136,7 +1315,6 @@ main {
     .menu {
         display: flex;
         flex-direction: column;
-        justify-content: normal;
         align-items: center;
     }
 
@@ -1175,6 +1353,25 @@ main {
         top: 200px;
     }
 
+    .user-detail .profile-img-wrapper {
+        position: static !important;
+    }
+
+    .user-detail-info-wrapper {
+        position: static !important;
+        background-image: none !important;
+    }
+
+    .user-detail img {
+        width: 200px;
+        height: 200px;
+    }
+
+
+    .user-detail-info-wrapper > div {
+        background-image: linear-gradient(var(--light-blue-black), transparent);
+    }
+
     .artist-discography {
         margin-top: 250px !important;
     }
@@ -1191,7 +1388,6 @@ main {
         height: 150px;
     }
 }
-
 
 @media (max-width: 545px) {
     .out-nav-list-burger {
@@ -1220,7 +1416,6 @@ main {
 
 
 }
-
 
 @media (max-width: 460px) {
     .tabs ul li:first-of-type span {

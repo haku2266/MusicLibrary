@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm, LoginForm
@@ -58,3 +59,5 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+

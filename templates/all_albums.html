@@ -9,6 +9,15 @@
     {% for album in albums %}
 
         <div class="my-4 container album-detail d-flex flex-column">
+
+            <div class="text-white my-breadcrumb position-relative z-2 pt-5 mb-4">
+                <a href="{% url 'all_artists' %}">all artists</a>
+                <span>/</span>
+                <a href="{{ album.artist.get_absolute_url }}">{{ album.artist.nickname }}</a>
+                <span>/</span>
+                <span class="active">all albums</span>
+            </div>
+
             <div class="row album-detail-header p-3 mt-5">
                 <div class="col-lg-4 col-xxl-3 d-flex align-items-center justify-content-center"><img
                         src="{{ album.cover.url }}" alt="{{ album.title }}-album cover"></div>
