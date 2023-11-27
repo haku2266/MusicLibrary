@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-
+from siteuser.models import CustomUserModel
 from posts.models import CreatePostModel
-from .forms import ArtistRegisterFrom
+from .forms import ArtistRegisterFrom, AddSongForm
 from django.contrib.auth import get_user_model
-from .models import ArtistModel, AlbumModel, LikedContentModel, SongModel, PlaylistModel, FollowModel
+from .models import ArtistModel, AlbumModel, LikedContentModel, SongModel, FollowModel
 from django.core.exceptions import ObjectDoesNotExist
 
 User = get_user_model()
@@ -18,8 +18,8 @@ User = get_user_model()
 def home_view(request):
     page_title = 'home'
     posts_obj = CreatePostModel.objects.all().select_related('artist').select_related('artist__user')[:3]
-    artist_obj = ArtistModel.objects.all()[:4]
-    albums = AlbumModel.objects.all()
+    artist_obj = ArtistModel.objects.all()[:5].select_related('user')
+    albums = AlbumModel.objects.all().select_related('artist').select_related('artist__user').prefetch_related('liked_albums')
     return render(request, template_name='home.html', context={
         'page_title': page_title,
         'posts': posts_obj,
@@ -57,23 +57,28 @@ def artist_registration_view(request):
 
 @login_required
 def user_profile_page_view(request):
-    return render(request, template_name='user_profile_page.html')
+    obj = CustomUserModel.objects.prefetch_related('followings_of_user__artists__user').get(id=request.user.id)
+    return render(request, template_name='user_profile_page.html', context={
+        'user': obj
+    })
 
 
 def artist_detail_view(request, id):
     page_title = 'artist'
     obj = ArtistModel.objects.prefetch_related('songs_by_artist').prefetch_related('albums_by_artist') \
-        .prefetch_related('posts').select_related('user').get(id=id)
-
+        .prefetch_related('posts').select_related('user__liked_content').prefetch_related('songs_by_artist__liked_songs')\
+        .get(id=id)
+    user = CustomUserModel.objects.select_related('artist').prefetch_related('followings_of_user__artists__user').get(id=request.user.id)
     return render(request, template_name='artist_detail.html', context={
         'artist': obj,
-        'page_title': page_title
+        'page_title': page_title,
+        'my_user': user
     })
 
 
 def all_artists_view(request):
     page_title = 'all artists'
-    obj = ArtistModel.objects.all()
+    obj = ArtistModel.objects.all().select_related('user')
     return render(request, template_name='all_artists.html', context={
         'artists': obj,
         'page_title': page_title
@@ -82,7 +87,8 @@ def all_artists_view(request):
 
 def all_albums_view(request, id):
     page_title = 'all albums'
-    obj = AlbumModel.objects.filter(artist__user_id=id)
+    obj = AlbumModel.objects.select_related('artist').\
+        filter(artist__user_id=id)
 
     return render(request, template_name='all_albums.html', context={
         'albums': obj,
@@ -92,7 +98,8 @@ def all_albums_view(request, id):
 
 def artist_album_detail_view(request, id):
     page_title = 'album'
-    obj = AlbumModel.objects.get(id=id)
+    obj = AlbumModel.objects.select_related('artist').select_related('artist__user').\
+        get(id=id)
 
     return render(request, template_name='album_detail.html', context={
         'album': obj,
@@ -101,7 +108,8 @@ def artist_album_detail_view(request, id):
 
 
 def song_detail_view(request, id):
-    obj = SongModel.objects.get(id=id)
+    obj = SongModel.objects.select_related('album__artist')\
+        .select_related('album').get(id=id)
     return render(request, template_name='song_detail.html', context={
         'song': obj
     })
@@ -206,29 +214,8 @@ def like_album_view(request, id):
             return redirect('album_detail', id=id)
 
 
-def add_album(request):
-    ...
+def add_song_view(request):
+    form = AddSongForm()
 
-# def add_playlist(request):
+    return render(request, template_name='add_song.html', context={'form': form})
 
-
-# ------------------------------------------------------------------------------
-
-# RIGHT AFTER PLAYLIST
-
-
-# def add_song_view(request, id):
-#     play = PlaylistModel.objects.get(title='before-you-leave')
-#     try:
-#         obj = SongModel.objects.get(id=id)
-#     except ObjectDoesNotExist:
-#         return redirect('album_detail')
-#     else:
-#         if request.user.playlists_of_user.all():
-#             for i in request.user.playlists_of_user.all():
-#                 if i == play:
-#                     for song in i.songs.all():
-#                         if obj == song:
-#                             play.songs.remove(obj)
-#                             return redirect('album_detail', id=obj.album.id)
-#                     play.songs.add(obj)

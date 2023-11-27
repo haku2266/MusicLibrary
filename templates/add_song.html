@@ -1,0 +1,65 @@
+{% extends 'layouts/base.html' %}
+{#{% load crispy_forms_filters %}#}
+{% load crispy_forms_filters %}
+{% block page_title %}
+    Add song
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row d-flex justify-content-center px-3 px-sm-0">
+            <div class="form-card post-options col-12 col-md-7 col-lg-5 py-3 px-4 rounded-4
+                                            my-4 d-flex flex-column">
+                <h2 class="mx-auto mb-3 mb-md-5 d-flex gap-2"><i class="bi bi-music-note-list me-2"></i><span>add song</span>
+                </h2>
+                {{ form|crispy }}
+{#                <form action="{% url 'add_song' %}" method="post" enctype="multipart/form-data"#}
+{#                      class="d-flex flex-column row-gap-1">#}
+{#                    {% csrf_token %}#}
+{##}
+{#                    <div class="row">#}
+{#                        <div class="col-12">#}
+{#                            <div class="mb-3">#}
+{#                                <label for="id_username" class="form-label">{{ form.username.label }}<span#}
+{#                                        class="asteriskField">*</span></label>#}
+{#                                {{ form.username }}#}
+{#                                <div id="emailHelp"#}
+{#                                     class="form-text text-white">{{ form.username.help_text }}#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-12">#}
+{##}
+{#                            <div class="mb-3">#}
+{#                                <label for="id_email" class="form-label">{{ form.email.label }}<span#}
+{#                                        class="asteriskField">*</span></label>#}
+{#                                {{ form.email }}#}
+{#                                <div id="emailHelp"#}
+{#                                     class="form-text text-white">{{ form.email.help_text }}#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="row">#}
+{#                        <div class="col-12 col-xl-8">#}
+{#                            <div class="mb-3">#}
+{#                                <label for="id_profile_img" class="form-label">{{ form.profile_img.label }}</label>#}
+{#                                {{ form.profile_img }}#}
+{#                                <div id="emailHelp"#}
+{#                                     class="form-text text-white">{{ form.profile_img.help_text }}#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{##}
+{#                        <div class="d-flex justify-content-center justify-content-lg-end">#}
+{#                            <button type="submit" class="btn btn-primary go-back py-2 px-2">Register</button>#}
+{#                        </div>#}
+{#                </form>#}
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}

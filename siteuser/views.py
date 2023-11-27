@@ -1,9 +1,6 @@
-from django.contrib.auth.decorators import login_required
-from django.http import Http404
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm, LoginForm
 from django.contrib.auth import login, logout, authenticate
-from .models import CustomUserModel
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -16,7 +13,9 @@ def registration_view(request):
     else:
         if request.method == 'POST':
             form = RegistrationForm(request.POST, request.FILES)
+            print('1')
             if form.is_valid():
+                print('2')
                 del form.cleaned_data['confirm_password']
                 user = form.save(commit=False)
                 user.set_password(form.cleaned_data['password'])

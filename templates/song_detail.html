@@ -6,27 +6,39 @@
 {% endblock %}
 
 {% block content %}
+    <div class="container">
+        <div class="text-white my-breadcrumb position-relative z-2 pt-5 mb-4">
+            <a href="{{ song.album.artist.get_absolute_url }}">{{ song.album.artist.nickname }}</a>
+            <span>/</span>
+            <a href="{{ song.album.get_absolute_url }}">{{ song.album.title }}</a>
+            <span>/</span>
+            <span class="active">{{ song.title }}</span>
+        </div>
+    </div>
     <div class="container song-detail d-flex flex-column align-items-center">
+
         <h1 class="text-white">{{ song.title }}</h1>
 
-        <div id="audio-player-{{ song.id }}" class="audio-player my-3 position-absolute">
-            <audio id="audio-{{ song.id }}" class="d-none position-relative"
-                   controls>
-                <source src="{{ song.file.url }}" type="audio/mp3">
-                Your browser does not support the audio tag.
-            </audio>
-            <div class="">
-                <label for="volume-control-{{ song.id }}" class="d-none text-white text-start">Volume</label>
-                <input type="range" id="volume-control-{{ song.id }}"
-                       class="w-100 volume-control">
+        {% if song %}
+            <div id="audio-player-{{ song.id }}" class="audio-player my-3 position-absolute">
+                <audio id="audio-{{ song.id }}" class="d-none position-relative"
+                       controls>
+                    <source src="{{ song.file.url }}" type="audio/mp3">
+                    Your browser does not support the audio tag.
+                </audio>
+                <div class="">
+                    <label for="volume-control-{{ song.id }}" class="d-none text-white text-start">Volume</label>
+                    <input type="range" id="volume-control-{{ song.id }}"
+                           class="w-100 volume-control">
+                </div>
+
+                <button onclick="playPause('{{ song.id }}')"
+                        id="play-pause-button-{{ song.id }}"
+                        class="p-0 play-pause-button bi bi-play-fill">
+                </button>
             </div>
 
-            <button onclick="playPause('{{ song.id }}')"
-                    id="play-pause-button-{{ song.id }}"
-                    class="p-0 play-pause-button bi bi-play-fill">
-            </button>
-        </div>
-
+        {% endif %}
 
         <p class="my-container">
             {{ song.lyrics|default:'Not available' }}

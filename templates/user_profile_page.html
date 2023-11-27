@@ -14,7 +14,7 @@
                     <button type="button" onclick="closeModel()" class="bi bi-x-lg text-white ms-auto"
                             style=""></button>
                 </div>
-                {% for artist in request.user.followings_of_user.artists.all %}
+                {% for artist in user.followings_of_user.artists.all %}
                     <div class="follow-item py-2 d-flex align-items-center column-gap-2">
                         <a href="{{ artist.get_absolute_url }}">
                             <img src="{{ artist.user.profile_img.url }}" alt="">
@@ -37,60 +37,6 @@
 
     </div>
 
-{#    <div class="edit-profile-modal align-items-center justify-content-center" id="myModal2">#}
-{#        <div class="row d-flex w-100 ">#}
-{#            <div class="col-10 col-sm-6 col-lg-5 col-xl-4 px-3 py-4 rounded-2 mx-auto text-white">#}
-{#                <div class="d-flex justify-content-center flex-column mb-3">#}
-{#                    <div class="d-flex justify-content-center">#}
-{#                        <h3 class="text-center">Edit Profile</h3>#}
-{#                        <button type="button" onclick="closeModelEdit()" class="bi bi-x-lg text-white ms-auto"#}
-{#                                style=""></button>#}
-{#                    </div>#}
-{##}
-{#                    <hr>#}
-{#                    <div class="form-card">#}
-{#                        <form action="{% url 'edit_user' id=request.user.id %}" method="post">#}
-{#                            {% csrf_token %}#}
-{#                            <div class="row">#}
-{#                                <div class="col-12 col-lg-6">{{ form.first_name|as_crispy_field }}</div>#}
-{#                                <div class="col-12 col-lg-6">{{ form.last_name|as_crispy_field }}</div>#}
-{#                            </div>#}
-{##}
-{#                            <div class="row">#}
-{#                                <div class="col-12 col-xl-6">#}
-{#                                    <div class="">#}
-{#                                        <label for="id_username" class="form-label">{{ form.username.label }}<span#}
-{#                                                class="asteriskField">*</span></label>#}
-{#                                        {{ form.username }}#}
-{#                                        <div id="emailHelp"#}
-{#                                             class="form-text text-white">{{ form.username.help_text }}#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <div class="col-12 col-xl-6" style="margin-top: 13px">#}
-{#                                    <div class="">#}
-{#                                        <label for="id_profile_img"#}
-{#                                               class="form-label">{{ form.profile_img.label }}</label>#}
-{#                                        {{ form.profile_img }}#}
-{#                                        <div id="emailHelp"#}
-{#                                             class="form-text text-white">{{ form.profile_img.help_text }}#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
-{##}
-                            {#                            <div class="row">#}
-                            {#                                #}
-                            {#                            </div>#}
-{#                            <button type="submit" class="btn btn-primary mt-4 go-back py-1 px-3">Save</button>#}
-{##}
-{#                        </form>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-
     <div class="container user-detail d-flex flex-column">
         <div class="row d-flex flex-column position-relative">
             <div class="profile-img-wrapper px-0 align-items-md-center d-flex col-12 col-md-4 position-absolute z-1">
@@ -102,8 +48,8 @@
                  style="min-height: 250px">
                 <div class="col-12 mt-4 mt-md-0 px-2 col-md-9 col-lg-10 ms-md-auto py-3">
                     <div class="user-credentials text-white">
-                        <h4 class="text-center text-md-start my-2 mt-md-5">{{ request.user.first_name|upper }}
-                            {{ request.user.last_name|upper }}</h4>
+                        <h4 class="text-center text-md-start my-2 mt-md-5">{{ user.first_name|upper }}
+                            {{ user.last_name|upper }}</h4>
                     </div>
                     <div class="user-related-links justify-content-center justify-content-md-start d-flex col-8 gap-4 mt-4">
                         <button type="button" class="px-3 py-2 d-flex align-items-center rounded-3"

@@ -38,6 +38,20 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="id_email" class="form-label">{{ form.description.label }}<span
+                                        class="asteriskField">*</span></label>
+                                {{ form.description }}
+                                <div id="emailHelp"
+                                     class="form-text text-white">{{ form.description.help_text }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <button type="submit" class="btn btn-primary go-back py-2 px-2">Create Artist</button>
                 </form>
             {% endif %}

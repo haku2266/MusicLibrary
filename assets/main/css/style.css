@@ -1272,7 +1272,6 @@ main {
     justify-content: center;
     background-color: rgba(43, 47, 50, 0.15);
     backdrop-filter: blur(5px);
-    padding: 15px;
     text-align: center;
 }
 

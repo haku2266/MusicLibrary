@@ -15,6 +15,9 @@ register.filter('length_query', length_query)
 
 
 def query_order(arg, n: str):
+    x = n.split('_')[1]
+    if x == 'songs':
+        return arg.prefetch_related(f'liked_{x}__{x}').annotate(Count(n)).order_by(f'-{n}__count')
     return arg.annotate(Count(n)).order_by(f'-{n}__count')
 
 
@@ -29,5 +32,3 @@ def is_inside_query(query, item):
 
 
 register.filter('is_inside_query', is_inside_query)
-
-

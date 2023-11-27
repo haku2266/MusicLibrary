@@ -7,6 +7,8 @@ User = get_user_model()
 
 class ArtistModel(models.Model):
     user = models.OneToOneField(User, on_delete=models.RESTRICT, related_name='artist')
+    description = models.CharField(max_length=100, blank=True, null=True,
+                                   help_text='Shortly describe the artist.')
     nickname = models.CharField(max_length=20, blank=True, null=False,
                                 help_text='Your artist name '
                                           'that will be attached to your content.'
@@ -68,9 +70,8 @@ class SongModel(models.Model):
     file = models.FileField(upload_to=path_song_file, max_length=5000, blank=False, null=False)
     album = models.ForeignKey(AlbumModel, blank=True, null=True, on_delete=models.SET_NULL,
                               related_name='songs_in_album')
-    artists = models.ManyToManyField(ArtistModel, related_name='songs_by_artist')
+    artist = models.ForeignKey(ArtistModel, related_name='songs_by_artist', on_delete=models.PROTECT)
     uploaded_at = models.DateTimeField(auto_now_add=True)
-    ordering = ['-uploaded_at']
 
     def __str__(self):
         return f'song:{self.title}'
@@ -81,26 +82,6 @@ class SongModel(models.Model):
     class Meta:
         verbose_name = 'song'
         verbose_name_plural = 'songs'
-
-
-class PlaylistModel(models.Model):
-    title = models.CharField(max_length=100, blank=False, null=False)
-    description = models.CharField(max_length=200, null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    uploaded_at = models.DateTimeField(auto_now=True)
-    songs = models.ManyToManyField(SongModel, related_name='playlists_of_song')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False,
-                             related_name='playlists_of_user')
-
-    def __str__(self):
-        return f'playlist:{self.title}'
-
-    def get_absolute_url(self):
-        return reverse('playlist_detail', kwargs={'id': self.id})
-
-    class Meta:
-        verbose_name = 'playlist'
-        verbose_name_plural = 'playlists'
         ordering = ['-uploaded_at']
 
 
@@ -109,8 +90,6 @@ class LikedContentModel(models.Model):
                                    )
     albums = models.ManyToManyField(AlbumModel, related_name='liked_albums', blank=True,
                                     )
-    playlists = models.ManyToManyField(PlaylistModel, related_name='liked_playlists',
-                                       blank=True, )
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=False, null=False,
                                 related_name='liked_content')
 

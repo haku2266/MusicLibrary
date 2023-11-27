@@ -1,11 +1,8 @@
 from django.contrib import admin
-from .models import ArtistModel, AlbumModel, SongModel, PlaylistModel, LikedContentModel, \
-    FollowModel
+from .models import *
 
+admin.site.register(SongModel)
 admin.site.register(ArtistModel)
 admin.site.register(AlbumModel)
-admin.site.register(SongModel)
-admin.site.register(PlaylistModel)
-admin.site.register(LikedContentModel)
 admin.site.register(FollowModel)
-
+admin.site.register(LikedContentModel)
