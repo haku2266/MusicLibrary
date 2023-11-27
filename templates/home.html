@@ -24,7 +24,8 @@
         <div class="row d-flex mb-3 all_artists overflow-y-hidden" style="height: 282px">
             {% for artist in artists %}
                 <div class="col-12 col-sm-6 px-0 col-md-4 mx-md-0 col-lg-3 col-xl-2 mx-lg-0 mx-xl-4 mx-xxl-2 d-flex flex-column align-items-center">
-                    <a href="{{ artist.get_absolute_url }}" class=" artist-card position-relative p-3 px-4 pb-4 rounded-3">
+                    <a href="{{ artist.get_absolute_url }}"
+                       class=" artist-card position-relative p-3 px-4 pb-4 rounded-3">
                         <i class="editor-gem position-absolute bi bi-gem
                             {% if request.user == artist.user %}
                                 d-block

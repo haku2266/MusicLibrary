@@ -6,17 +6,29 @@
 
 {% block content %}
     <div class="container ">
+
+        <div class="text-white my-breadcrumb position-relative z-2 pt-5 mb-4">
+            <a href="{% url 'home' %}">home</a>
+            <span>/</span>
+            <a href="{% url 'artist_detail' id=request.user.artist.id %}">artist</a>
+            <span>/</span>
+            <span class="active">add album</span>
+        </div>
+
         <div class="row d-flex justify-content-center px-3 px-sm-0">
             <div class="form-card post-options mx-sm-0 col-12 col-sm-8 col-md-7 col-lg-4 py-4 px-4 rounded-4
                                             my-4 d-flex flex-column">
-                <h2 class="mx-auto mb-3 my-md-2 d-flex gap-2"><i class="bi bi-music-note-list me-2"></i><span>Add Album</span>
+                <h2 class="mx-auto mb-3 my-md-2 d-flex gap-2"><i
+                        class="bi bi-music-note-list me-2"></i><span>Add Album</span>
                 </h2>
-                <form action="{% url 'add_album' %}" method="post" enctype="multipart/form-data" class="d-flex flex-column row-gap-1">
+                <form action="{% url 'add_album' %}" method="post" enctype="multipart/form-data"
+                      class="d-flex flex-column row-gap-1">
                     <h2></h2>
                     {% csrf_token %}
                     {{ form|crispy }}
                     <div class="d-flex">
-                        <button type="submit" class="btn mx-auto mx-lg-0 ms-lg-auto btn-primary go-back btn-md py-2 px-2">Add Album
+                        <button type="submit"
+                                class="btn mx-auto mx-lg-0 ms-lg-auto btn-primary go-back btn-md py-2 px-2">Add Album
                         </button>
 
                     </div>

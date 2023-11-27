@@ -40,15 +40,19 @@
 
         <div class="edit-profile-modal align-items-center justify-content-center" id="myModal2">
             <div class="row d-flex w-100 ">
-                <div class="col-10 col-sm-6 col-lg-5 col-xl-4 px-3 py-4 rounded-2 mx-auto bg-primary text-white">
+                <div class="col-10 col-sm-6 col-lg-5 col-xl-4 px-3 py-4 rounded-2 mx-auto text-white">
                     <div class="d-flex align-items-center mb-3">
                         <h3 class="text-center">Create</h3>
                         <button type="button" onclick="closeModelEdit()" class="bi bi-x-lg text-white ms-auto"
                                 style=""></button>
                     </div>
-                    <a href="{% url 'add_album' %}">Add album</a>
-                    <a href="{% url 'add_song' %}">Add song</a>
-                    <a href="{% url 'create_post' %}">Add post</a>
+                    <div class="d-flex align-items-center flex-column row-gap-3">
+                        <a class="btn btn-primary go-back bi bi-journal-album" href="{% url 'add_album' %}">Add
+                            album</a>
+                        <a class="btn btn-primary go-back bi-music-note-beamed px-3" href="{% url 'add_song' %}">Add song</a>
+                        <a class="btn btn-primary go-back bi bi-pencil px-3" href="{% url 'create_post' %}">Add post</a>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -89,9 +93,9 @@
                                 <span class="d-none d-lg-block me-1">Followings</span><i class="bi bi-person-check"></i>
                             </button>
 
-                            <a href="" class="px-3 py-2 d-flex align-items-center text-center rounded-3">
-                                <span class="d-none d-lg-block me-1"> Playlists</span><i
-                                    class="bi bi-music-note-list"></i>
+                            <a href="{% url 'artist_posts_list' %}" class="px-3 py-2 d-flex align-items-center text-center rounded-3">
+                                <span class="d-none d-lg-block me-1"> My Posts</span><i
+                                    class="bi bi-pencil"></i>
                             </a>
 
                             <button onclick="openModalEdit()" id="modalEditBtn"
@@ -231,7 +235,9 @@
                                                     <h5>{{ album.title|truncatechars:'15' }}</h5>
                                                     <span>{{ album.uploaded_at|date:'Y' }} - Album</span>
                                                     <br>
-                                                    <span class="mt-1">{{ query|length_query }} pe{{ query|length_query|pluralize:"rson,ople" }} liked</span>
+                                                    {% with album.liked_albums.all as liked_a %}
+                                                        <span class="mt-1">{{ liked_a|length_query }} pe{{ liked_a|length_query|pluralize:"rson,ople" }} liked</span>
+                                                    {% endwith %}
 
                                                 </div>
                                             </a>
