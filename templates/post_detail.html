@@ -5,8 +5,17 @@
 {% endblock %}
 
 {% block content %}
-    {#    {{ request.user }} A.K.A {{ request.user.artist }}#}
     <div class="container">
+
+
+        <div class="text-white my-breadcrumb position-relative z-2 pt-5 mb-4">
+            <a href="{{ post.artist.get_absolute_url }}">{{ post.artist.nickname }}</a>
+            <span>/</span>
+            <a href="{% url 'user_posts_list' id=post.artist.user.id %}">all posts</a>
+            <span>/</span>
+            <span class="active">{{ post.title|truncatechars:'15'}}</span>
+        </div>
+
         <div class="row artist-articles row-gap-2">
             <div class="col-12 p-2 p-md-3 position-relative">
                 <i class="editor-gem fs-1 position-absolute bi bi-gem
@@ -18,26 +27,24 @@
                     "></i>
                 <div class="artist-post post-detail py-4 px-4 mx-1 position-relative d-flex flex-column">
                     <h1 class="text-center articles-section-header">{{ post.title|title }}</h1>
-                    <p class="mb-1 detail_date">-Published at <span class="ms-1 text-white">{{ post.created_at|date:'F j, Y' }}</span></p>
-                    <p class="detail_author">-Written by <a href="{{ post.artist.get_absolute_url }}" class="ms-1 text-white">{{ post.artist.nickname }}</a></p>
-{#                    <hr class="border-2 my-1 opacity-75">#}
-                    <p cla ss="h-auto overflow-hidden">{{post.text|capfirst|safe }}</p>
+                    <p class="mb-1 detail_date">-Published at <span
+                            class="ms-1 text-white">{{ post.created_at|date:'F j, Y' }}</span></p>
+                    <p class="detail_author">-Written by <a href="{{ post.artist.get_absolute_url }}"
+                                                            class="ms-1 text-white">{{ post.artist.nickname }}</a></p>
+                    {#                    <hr class="border-2 my-1 opacity-75">#}
+                    <p class="h-auto overflow-hidden">{{ post.text|capfirst|safe }}</p>
                     <div class="post-options mb-2 mt-auto d-flex justify-content-start">
-                        <div class="d-flex">
-                            <a href="{% url 'home' %}" class="btn btn-primary gap-1 d-flex go-back">
-                                <span>Go Back</span><i class=" bi bi-arrow-right"></i></a>
-                        </div>
 
                     </div>
 
                 </div>
             </div>
             <div class="col-12 col-lg-4 p-2 p-md-3 position-relative d-flex justify-content-center justify-content-sm-start align-items-center see-more-posts">
-{#                <div class="py-4 px-4 mx-1">#}
-{#                    <a href="{% url 'user_posts_list' id= %}"#}
-{#                       class="btn btn-primary px-3 gap-1 d-flex justify-content-center"><span>All Posts</span><i#}
-{#                            class="bi bi-arrow-right"></i></a>#}
-{#                </div>#}
+                {#                <div class="py-4 px-4 mx-1">#}
+                {#                    <a href="{% url 'user_posts_list' id= %}"#}
+                {#                       class="btn btn-primary px-3 gap-1 d-flex justify-content-center"><span>All Posts</span><i#}
+                {#                            class="bi bi-arrow-right"></i></a>#}
+                {#                </div>#}
 
             </div>
         </div>
