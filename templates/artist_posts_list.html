@@ -6,18 +6,18 @@
 
 {% block content %}
     <div class="container">
+        {% if posts %}
+            {% with posts|random as my_post %}
 
-        {% with posts|random as my_post %}
-
-            <div class="text-white my-breadcrumb position-relative z-2 pt-5 mb-4">
-                <a href="{% url 'all_artists' %}">all artists</a>
-                <span>/</span>
-                <a href="{{ my_post.artist.get_absolute_url }}">{{ my_post.artist }}</a>
-                <span>/</span>
-                <span class="active">my posts</span>
-            </div>
-        {% endwith %}
-
+                <div class="text-white my-breadcrumb position-relative z-2 pt-5 mb-4">
+                    <a href="{% url 'all_artists' %}">all artists</a>
+                    <span>/</span>
+                    <a href="{{ my_post.artist.get_absolute_url }}">{{ my_post.artist }}</a>
+                    <span>/</span>
+                    <span class="active">my posts</span>
+                </div>
+            {% endwith %}
+        {% endif %}
         <div class="row">
             <h1 class="text-center articles-section-header">My Posts</h1>
             <div class="row artist-articles row-gap-2">
@@ -56,6 +56,8 @@
 
                         </div>
                     </div>
+                {% empty %}
+                    <h1 class="mt-5 text-center text-white">No Posts Yet</h1>
                 {% endfor %}
             </div>
         </div>
